@@ -1,2 +1,2 @@
 # Z-BOT
-A Discord application for a perosnal Discord server
+Une application Discord pour un serveur Discrord personnel
