@@ -1,0 +1,17 @@
+{
+  "name": "zbot",
+  "version": "1.0.4",
+  "description": "Application for Z-SPY Discord Server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sachanime",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/rest": "^2.4.0",
+    "canvas": "^2.11.2",
+    "discord.js": "^14.16.3",
+    "mongoose": "^8.7.1"
+  }
+}
