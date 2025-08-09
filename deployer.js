@@ -14,7 +14,7 @@ const commands = [
 
     new SlashCommandBuilder()
     .setName("level")
-    .setDescription("Obtenir des informations sur le "),
+    .setDescription("Obtenir des informations sur votre level"),
 
     new SlashCommandBuilder()
     .setName("test")

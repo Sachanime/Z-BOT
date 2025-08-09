@@ -313,7 +313,7 @@ client.on("interactionCreate", async interaction => {
 
         if(interaction.user.id == ID.Clients.Sacha) {
 
-            interaction.reply("__**Z-BOT 1.0.4**__ \n\nFix => Leveling System: Correction du ping dans l'embed Level Goal")
+            interaction.reply("Z-BOT est maintenant disponible sur [Github](https://github.com/Sachanime/Z-BOT)")
 
         }
 
