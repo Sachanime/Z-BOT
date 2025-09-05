@@ -5,24 +5,12 @@ const ID = require("./ID.json")
 const commands = [
 
     new SlashCommandBuilder()
-    .setName("connect")
-    .setDescription("Lance une connexion à la base de donnée"),
-
-    new SlashCommandBuilder()
     .setName("infos")
     .setDescription("Obtenir des informations sur le BOT"),
 
     new SlashCommandBuilder()
     .setName("level")
     .setDescription("Obtenir des informations sur votre level"),
-
-    new SlashCommandBuilder()
-    .setName("test")
-    .setDescription("A test command for development"),
-
-    new SlashCommandBuilder()
-    .setName("update")
-    .setDescription("Send update messages")
 
 ]
 
