@@ -21,7 +21,7 @@ jobs:
           script: |
             rm ~/.pm2/logs/zbot-error.log
             rm ~/.pm2/logs/zbot-out.log
-            cd ~/BOT/ZBOT
+            cd ~/BOT/Z-BOT
             git pull origin main
             npm install
             pm2 restart zbot
