@@ -1,4 +1,4 @@
-const { Client, EmbedBuilder, MessageType, Message, ActivityType } = require("discord.js")
+const { Client, MessageType, ActivityType } = require("discord.js")
 const { Low } = require("lowdb")
 const { JSONFile } = require("lowdb/node")
 //const { createCanvas, loadImage } = require("canvas")
@@ -7,6 +7,7 @@ const ID = require("./ID-beta.json")
 const Token = require("./token.json")
 const package = require("./package.json")
 const packagelock = require("./package-lock.json")
+const { levelUpEmbed, levelGoalEmbed, createInfosEmbed, createLevelEmbed } = require("./embeds.js")
 
 const client = new Client({ intents: [3276799] })
 const adapter = new JSONFile(ID.DB.Main)
@@ -57,11 +58,6 @@ async function startBot() {
         if(message.type == MessageType.ChannelPinnedMessage) { return }
 
         //Register System
-        const registerErrorEmbed = new EmbedBuilder()
-        .setTitle("Register System")
-        .setDescription("Impossible de vous enregistrer dans la base de donnée. \nMerci de patienter, <@" + ID.Clients.Sacha + "> va intervenir.")
-        .setColor("Red")
-
         if(usersDb.find(u => u.id == message.author.id)) { return }
 
         else{
@@ -79,19 +75,6 @@ async function startBot() {
         //Ignore System
         if(message.author.bot) { return }
         if(message.type == MessageType.ChannelPinnedMessage) { return }
-
-        //Embeds
-        const levelUpEmbed = new EmbedBuilder()
-        .setTitle("Level UP !")
-        .setDescription("Félicitation, vous venez de monter au niveau supérieur !")
-        .setColor("Green")
-        .setThumbnail("https://cdn-icons-png.freepik.com/256/6180/6180583.png?semt=ais_hybrid")
-
-        const levelGoalEmbed = new EmbedBuilder()
-        .setTitle("Level Goal !")
-        .setDescription("Félicitation, vous venez d'atteindre votre level goal !")
-        .setColor("Gold")
-        .setThumbnail("https://images.vexels.com/media/users/3/147999/isolated/lists/417c14a674920407a978bcaea0ce7cec-goal-square-icon.png")
 
         //Alogrithme
         const levelUser = usersDb.find(u => u.id == message.author.id)
@@ -150,19 +133,7 @@ async function startBot() {
 
         if(commandName == "infos") {
 
-            const infosEmbed = new EmbedBuilder()
-            .setTitle("Z-BOT")
-            .setColor("Blue")
-            .setThumbnail(client.user.avatarURL())
-            .setDescription(
-                package.description + "\n\n" +
-                "__**Versions**__" + "\n\n" +
-                "Z-BOT : " + package.version + "\n\n" +
-                "Node.js : " + process.version + "\n\n" +
-                "Discord.js : " + packagelock.packages["node_modules/discord.js"].version + "\n" +
-                "lowdb : " + packagelock.packages["node_modules/lowdb"].version
-            )
-
+            const infosEmbed = createInfosEmbed(client, package, packagelock)
             interaction.reply({ embeds: [infosEmbed] })
 
         }
@@ -170,16 +141,7 @@ async function startBot() {
         if(commandName == "level") {
 
             const levelUser = usersDb.find(u => u.id == interaction.user.id)
-
-            const levelEmbed = new EmbedBuilder()
-            .setTitle("Level")
-            .setDescription(
-                "Level : " + levelUser.level.toString() + "\n\n" +
-                "XP : " + levelUser.xp.toString() + "\n\n" +
-                "Prochain niveau à " + levelUser.xpgoal.toString() + "xp \n\n" +
-                "Prochaine récompense au niveau " + levelUser.levelgoal.toString()
-            )
-
+            const levelEmbed = createLevelEmbed(levelUser)
             interaction.reply({ embeds: [levelEmbed] })
 
         }

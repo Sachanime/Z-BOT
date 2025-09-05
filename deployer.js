@@ -1,6 +1,7 @@
-const { SlashCommandBuilder, Routes, PermissionFlagsBits, Client } = require("discord.js")
+const { SlashCommandBuilder, Routes } = require("discord.js")
 const { REST } = require("@discordjs/rest")
-const ID = require("./ID.json")
+const ID = require("./ID-beta.json")
+const Token = require("./token.json")
 
 const commands = [
 
@@ -10,12 +11,12 @@ const commands = [
 
     new SlashCommandBuilder()
     .setName("level")
-    .setDescription("Obtenir des informations sur votre level"),
+    .setDescription("Obtenir des informations sur votre level")
 
 ]
 
 .map(command => command.toJSON())
 
-const rest = new REST({ version: "10" }).setToken(ID.Tokens.ZBOT)
+const rest = new REST({ version: "10" }).setToken(Token.Beta)
 
 rest.put(Routes.applicationCommands(ID.Clients.ZBOT), { body: commands }).then((data) => console.log(`Sucessfully registered ${data.length} application commands`)).catch(console.error)
