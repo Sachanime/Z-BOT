@@ -42,4 +42,21 @@ function createLevelEmbed(levelUser) {
 
 }
 
-module.exports = { levelUpEmbed, levelGoalEmbed, createInfosEmbed, createLevelEmbed }
+function createChangelogEmbed(data) {
+
+    return new EmbedBuilder()
+    .setDescription(data.body)
+    .setColor("Blue")
+
+}
+
+function createChangelogErrorEmbed(err) {
+
+    return new EmbedBuilder()
+    .setTitle("New release")
+    .setDescription("Erreur lors de la récupération du changelog \nVous pouvez y accéder avec la commande `/changelog` \n\n```\n" + err + "\n```")
+    .setColor("Red")
+
+}
+
+module.exports = { levelUpEmbed, levelGoalEmbed, createInfosEmbed, createLevelEmbed, createChangelogEmbed, createChangelogErrorEmbed }

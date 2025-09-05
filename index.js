@@ -7,7 +7,7 @@ const ID = require("./ID-beta.json")
 const Token = require("./token.json")
 const package = require("./package.json")
 const packagelock = require("./package-lock.json")
-const { levelUpEmbed, levelGoalEmbed, createInfosEmbed, createLevelEmbed } = require("./embeds.js")
+const { levelUpEmbed, levelGoalEmbed, createInfosEmbed, createLevelEmbed, createChangelogEmbed, createChangelogErrorEmbed } = require("./embeds.js")
 
 const client = new Client({ intents: [3276799] })
 const adapter = new JSONFile(ID.DB.Main)
@@ -23,7 +23,7 @@ async function startBot() {
     let usersDb = db.data.users
 
     //Start System
-    client.once("clientReady", () => {
+    client.once("clientReady", async () => {
 
         console.log(" ____  _  ___       ____                                          ")
         console.log("/ ___|| |/ / |     |  _ \\ _ __ ___   __ _ _ __ __ _ _ __ ___  ___ ")
@@ -43,8 +43,29 @@ async function startBot() {
 
         console.log("Z-BOT : 🟢 - Connected")
 
-        //client.user.setStatus("dnd")
-        //client.user.setPresence({ activities: [{ name: "En cours de maintenance", type: ActivityType.Custom }] })
+        try {
+
+            const response = await fetch("https://api.github.com/repos/Sachanime/Z-BOT/releases/latest", {
+
+                headers: {
+                    "Accept": "application/vnd.github+json",
+                    "User-Agent": "DiscordBot"
+                }
+
+            })
+
+            if (!response.ok) throw new Error(`Erreur API GitHub: ${response.status} ${response.statusText}`)
+
+            const data = await response.json()
+            const changelogEmbed = createChangelogEmbed(data)
+            client.guilds.cache.get(ID.Servers.ZSPY).channels.cache.get(ID.Channels.Changelog).send({ embeds: [changelogEmbed] })
+
+        }
+
+        catch (err) {
+            const changelogErrorEmbed = createChangelogErrorEmbed(err)
+            client.guilds.cache.get(ID.Guilds.Tanuki).channels.cache.get(ID.Channels.Changelog).send({ embeds: [changelogErrorEmbed] })
+        }
 
         client.user.setPresence({ activities: [{ name: "Z-SPY Discord Server", type: ActivityType.Watching }] })
 
@@ -143,6 +164,34 @@ async function startBot() {
             const levelUser = usersDb.find(u => u.id == interaction.user.id)
             const levelEmbed = createLevelEmbed(levelUser)
             interaction.reply({ embeds: [levelEmbed] })
+
+        }
+
+        if(commandName == "changelog") {
+
+            try {
+
+                const response = await fetch("https://api.github.com/repos/Sachanime/Z-BOT/releases/latest", {
+
+                    headers: {
+                        "Accept": "application/vnd.github+json",
+                        "User-Agent": "DiscordBot"
+                    }
+
+                })
+
+                if (!response.ok) throw new Error(`Erreur API GitHub: ${response.status} ${response.statusText}`)
+
+                const data = await response.json()
+                const changelogEmbed = createChangelogEmbed(data)
+                interaction.reply({ embeds: [changelogEmbed] })
+
+            }
+
+            catch (err) {
+                const changelogErrorEmbed = createChangelogErrorEmbed(err)
+                interaction.reply({ embeds: [changelogErrorEmbed] })
+            }
 
         }
 
