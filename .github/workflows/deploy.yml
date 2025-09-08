@@ -19,8 +19,8 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            rm ~/.pm2/logs/zbot-error.log
-            rm ~/.pm2/logs/zbot-out.log
+            rm ~/.pm2/logs/index-error.log
+            rm ~/.pm2/logs/index-out.log
             cd ~/BOT/Z-BOT
             git pull origin main
             npm install
