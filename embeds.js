@@ -59,4 +59,13 @@ function createChangelogErrorEmbed(err) {
 
 }
 
-module.exports = { levelUpEmbed, levelGoalEmbed, createInfosEmbed, createLevelEmbed, createChangelogEmbed, createChangelogErrorEmbed }
+function createConnectEmbed(package) {
+
+    return new EmbedBuilder()
+    .setTitle("**Z-BOT** " + package.version)
+    .setDescription("Connecté ! \n\n`/infos` pour afficher la page d'information \n\n`/changelog` pour voir le changelog de la version actuel")
+    .setColor("Green")
+
+}
+
+module.exports = { levelUpEmbed, levelGoalEmbed, createInfosEmbed, createLevelEmbed, createChangelogEmbed, createChangelogErrorEmbed, createConnectEmbed }

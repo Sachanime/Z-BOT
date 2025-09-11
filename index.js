@@ -7,7 +7,7 @@ const ID = require("./ID.json")
 const Token = require("./token.json")
 const package = require("./package.json")
 const packagelock = require("./package-lock.json")
-const { levelUpEmbed, levelGoalEmbed, createInfosEmbed, createLevelEmbed, createChangelogEmbed, createChangelogErrorEmbed } = require("./embeds.js")
+const { levelUpEmbed, levelGoalEmbed, createInfosEmbed, createLevelEmbed, createChangelogEmbed, createChangelogErrorEmbed, createConnectEmbed } = require("./embeds.js")
 
 const client = new Client({ intents: [3276799] })
 const adapter = new JSONFile(ID.DB.Main)
@@ -43,29 +43,8 @@ async function startBot() {
 
         console.log("Z-BOT : 🟢 - Connected")
 
-        try {
-
-            const response = await fetch("https://api.github.com/repos/Sachanime/Z-BOT/releases/latest", {
-
-                headers: {
-                    "Accept": "application/vnd.github+json",
-                    "User-Agent": "DiscordBot"
-                }
-
-            })
-
-            if (!response.ok) throw new Error(`Erreur API GitHub: ${response.status} ${response.statusText}`)
-
-            const data = await response.json()
-            const changelogEmbed = createChangelogEmbed(data)
-            client.guilds.cache.get(ID.Servers.ZSPY).channels.cache.get(ID.Channels.Changelog).send({ embeds: [changelogEmbed] })
-
-        }
-
-        catch (err) {
-            const changelogErrorEmbed = createChangelogErrorEmbed(err)
-            client.guilds.cache.get(ID.Guilds.Tanuki).channels.cache.get(ID.Channels.Changelog).send({ embeds: [changelogErrorEmbed] })
-        }
+        const connectEmbed = createConnectEmbed(package)
+        client.guilds.cache.get(ID.Servers.ZSPY).channels.cache.get(ID.Channels.Changelog).send({ embeds: [connectEmbed] })
 
         client.user.setPresence({ activities: [{ name: "Z-SPY Discord Server", type: ActivityType.Watching }] })
 
@@ -224,8 +203,18 @@ async function startBot() {
 
     client.on("userUpdate", async (oldUser, newUser) => {
 
-        usersDb.find(u => u.id == newUser.id).username = newUser.username
-        await db.write()
+        if(usersDb.find(u => u.id == newUser.id)) {
+
+            usersDb.find(u => u.id == newUser.id).username = newUser.username
+            await db.write()
+
+        }
+
+        else {
+            const newUserEntry = { id: newUser.id, username: newUser.username, xp: 0, xpgoal: 10, level: 0, levelgoal: 10 }
+            usersDb.push(newUserEntry)
+            await db.write()
+        }
 
     })
 
