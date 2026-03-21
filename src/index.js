@@ -228,6 +228,20 @@ async function startBot() {
 
         const member = newState.member.user
 
+        if(usersDb.find(u => u.id == member.id)) { return }
+
+        else {
+            const newUser = { id: member.id, username: member.username, xp: 0, xpgoal: 10, level: 0, levelgoal: 10 }
+            usersDb.push(newUser)
+            await db.write()
+        }
+
+    })
+
+    client.on("voiceStateUpdate", async (oldState, newState) => {
+
+        const member = newState.member.user
+
         if(newState.channel != null) {
             voiceTimer.set(member.id, Date.now())
         }
