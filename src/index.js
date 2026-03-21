@@ -224,28 +224,68 @@ async function startBot() {
 
     })
 
-    client.on("voiceStateUpdate", (oldState, newState) => {
+    client.on("voiceStateUpdate", async (oldState, newState) => {
 
         const member = newState.member.user
-        const testChannel = client.guilds.cache.get(ID.Servers.ZSPY).channels.cache.get(ID.Channels.Test)
 
-        if(newState.channel != null){
-
-            const voiceChannel = newState.channel.name
-
+        if(newState.channel != null) {
             voiceTimer.set(member.id, Date.now())
-            testChannel.send(member.username + " a rejoint le vocal " + voiceChannel)
-
         }
 
-        if(newState.channel == null){
+        if(newState.channel == null) {
 
-            const voiceChannel = oldState.channel.name
             const joinTime = voiceTimer.get(member.id)
             const timeSpentMs = Date.now() - joinTime
-            const timeSpent = Math.floor(timeSpentMs / 1000)
-            
-            testChannel.send(member.username + " a quitté le vocal " + voiceChannel + "\nIl y a passé " + timeSpent + " secondes")
+            const timeSpent = Math.floor(timeSpentMs / 3600000)
+            const xpGained = timeSpent * 2
+
+            const levelUser = usersDb.find(u => u.id == member.id)
+
+            if(levelUser) {
+
+                levelUser.xp += xpGained
+                await db.write()
+
+                if(levelUser.xp == levelUser.xpgoal) {
+
+                    levelUpEmbed.setDescription("<@" + levelUser.id + "> vient de passer niveau " + (levelUser.level + 1))
+
+                    levelUser.xp = 0
+                    levelUser.level += 1
+                    levelUser.xpgoal += 10
+                    await db.write()
+                    client.channels.cache.get(ID.Channels.Levels).send({ embeds: [ levelUpEmbed ] })
+
+                    if(levelUser.level == levelUser.levelgoal) {
+
+                        if(levelUser.level == 5) {
+                            levelGoalEmbed.setDescription("<@" + levelUser.id + "> a atteint un objectif et obtient le rôle <@&" + ID.Roles.Friend + ">")
+                            client.guilds.cache.get(ID.Servers.ZSPY).members.cache.get(levelUser.id).roles.add(ID.Roles.Friend)
+                            levelUser.levelgoal = 20
+                            await db.write()
+                        }
+
+                        if(levelUser.level == 20) {
+                            levelGoalEmbed.setDescription("<@" + levelUser.id + "> a atteint un objectif et obtient le rôle <@&" + ID.Roles.BestFriend + ">")
+                            client.guilds.cache.get(ID.Servers.ZSPY).members.cache.get(levelUser.id).roles.add(ID.Roles.BestFriend)
+                            levelUser.levelgoal = 30
+                            await db.write()
+                        }
+
+                        if(levelUser.level == 30) {
+                            levelGoalEmbed.setDescription("<@" + levelUser.id + "> a atteint un objectif et obtient le rôle <@&" + ID.Roles.SPY + ">")
+                            client.guilds.cache.get(ID.Servers.ZSPY).members.cache.get(levelUser.id).roles.add(ID.Roles.SPY)
+                            levelUser.levelgoal = 0
+                            await db.write()
+                        }
+
+                        client.channels.cache.get(ID.Channels.Levels).send({ embeds: [ levelGoalEmbed ] })
+
+                    }
+
+                }
+
+            }
 
         }
 
