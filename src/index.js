@@ -102,15 +102,15 @@ async function startBot() {
                     }
 
                     if(levelUser.level == 20) {
-                        levelGoalEmbed.setDescription("<@" + levelUser.id + "> a atteint un objectif et obtient le rôle <@&" + ID.Roles.SPY + ">")
-                        client.guilds.cache.get(ID.Servers.ZSPY).members.cache.get(levelUser.id).roles.add(ID.Roles.SPY)
+                        levelGoalEmbed.setDescription("<@" + levelUser.id + "> a atteint un objectif et obtient le rôle <@&" + ID.Roles.BestFriend + ">")
+                        client.guilds.cache.get(ID.Servers.ZSPY).members.cache.get(levelUser.id).roles.add(ID.Roles.BestFriend)
                         levelUser.levelgoal = 30
                         await db.write()
                     }
 
                     if(levelUser.level == 30) {
-                        levelGoalEmbed.setDescription("<@" + levelUser.id + "> a atteint un objectif et obtient le rôle <@&" + ID.Roles.BestFriend + ">")
-                        client.guilds.cache.get(ID.Servers.ZSPY).members.cache.get(levelUser.id).roles.add(ID.Roles.BestFriend)
+                        levelGoalEmbed.setDescription("<@" + levelUser.id + "> a atteint un objectif et obtient le rôle <@&" + ID.Roles.SPY + ">")
+                        client.guilds.cache.get(ID.Servers.ZSPY).members.cache.get(levelUser.id).roles.add(ID.Roles.SPY)
                         levelUser.levelgoal = 0
                         await db.write()
                     }
