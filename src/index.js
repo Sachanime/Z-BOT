@@ -44,9 +44,6 @@ async function startBot() {
 
         console.log("Z-BOT : 🟢 - Connected")
 
-        const connectEmbed = createConnectEmbed(package)
-        client.guilds.cache.get(ID.Servers.ZSPY).channels.cache.get(ID.Channels.Changelog).send({ embeds: [connectEmbed] })
-
         client.user.setPresence({ activities: [{ name: "Z-SPY Discord Server", type: ActivityType.Watching }] })
 
     })
