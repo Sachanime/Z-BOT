@@ -13,6 +13,7 @@ const { levelUpEmbed, levelGoalEmbed, createInfosEmbed, createLevelEmbed, create
 const client = new Client({ intents: [3276799] })
 const adapter = new JSONFile(ID.DB.Main)
 const db = new Low(adapter, { users: [], mainDoc: [] })
+const voiceTimer = new Map()
 //const canvas = createCanvas(200, 200)
 //const ctx = canvas.getContext("2d")
 
@@ -222,8 +223,6 @@ async function startBot() {
         await db.write()
 
     })
-
-    const voiceTimer = new Map()
 
     client.on("voiceStateUpdate", (oldState, newState) => {
 
