@@ -3,7 +3,8 @@ const { Low } = require("lowdb")
 const { JSONFile } = require("lowdb/node")
 //const { createCanvas, loadImage } = require("canvas")
 
-const ID = require("./ID.json")
+//const ID = require("./ID.json")
+const ID = require("../src-beta/ID-beta.json")
 const Token = require("./token.json")
 const package = require("../package.json")
 const packagelock = require("../package-lock.json")
@@ -17,7 +18,7 @@ const db = new Low(adapter, { users: [], mainDoc: [] })
 
 async function startBot() {
     
-    client.login(Token.ZBOT)
+    client.login(Token.Beta)
     await db.read()
 
     let usersDb = db.data.users
@@ -222,6 +223,35 @@ async function startBot() {
 
         usersDb = usersDb.filter((u => u.id !== member.user.id))
         await db.write()
+
+    })
+
+    const voiceTimer = new Map()
+
+    client.on("voiceStateUpdate", (oldState, newState) => {
+
+        const member = newState.member.user
+        const testChannel = client.guilds.cache.get(ID.Servers.ZSPY).channels.cache.get(ID.Channels.Test)
+
+        if(newState.channel != null){
+
+            const voiceChannel = newState.channel.name
+
+            voiceTimer.set(member.id, Date.now())
+            testChannel.send(member.username + " a rejoint le vocal " + voiceChannel)
+
+        }
+
+        if(newState.channel == null){
+
+            const voiceChannel = oldState.channel.name
+            const joinTime = voiceTimer.get(member.id)
+            const timeSpentMs = Date.now() - joinTime
+            const timeSpent = Math.floor(timeSpentMs / 1000)
+            
+            testChannel.send(member.username + " a quitté le vocal " + voiceChannel + "\nIl y a passé " + timeSpent + " secondes")
+
+        }
 
     })
 
