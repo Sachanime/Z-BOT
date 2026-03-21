@@ -5,8 +5,8 @@ const { JSONFile } = require("lowdb/node")
 
 const ID = require("./ID.json")
 const Token = require("./token.json")
-const package = require("./package.json")
-const packagelock = require("./package-lock.json")
+const package = require("../package.json")
+const packagelock = require("../package-lock.json")
 const { levelUpEmbed, levelGoalEmbed, createInfosEmbed, createLevelEmbed, createChangelogEmbed, createChangelogErrorEmbed, createConnectEmbed } = require("./embeds.js")
 
 const client = new Client({ intents: [3276799] })
