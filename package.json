@@ -9,9 +9,9 @@
   "author": "Sachanime",
   "license": "ISC",
   "dependencies": {
-    "@discordjs/rest": "^2.4.0",
-    "canvas": "^2.11.2",
-    "discord.js": "^14.16.3",
+    "@discordjs/rest": "^2.6.0",
+    "canvas": "^3.2.2",
+    "discord.js": "^14.25.1",
     "lowdb": "^7.0.1"
   }
 }
