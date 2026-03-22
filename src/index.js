@@ -251,6 +251,7 @@ async function startBot() {
             const joinTime = voiceTimer.get(member.id)
             const timeSpentMs = Date.now() - joinTime
             const timeSpent = Math.floor(timeSpentMs / 3600000)
+            //const timeSpent = Math.floor(timeSpentMs / 60000)
             const xpGained = timeSpent * 2
 
             const levelUser = usersDb.find(u => u.id == member.id)
@@ -300,6 +301,10 @@ async function startBot() {
                 }
 
             }
+
+            //console.log("Temps passé en vocal en milisecondes : " + timeSpentMs + "ms")
+            //console.log("Heures comptées : " + timeSpent)
+            //console.log("XP gagné : " + xpGained)
 
         }
 
