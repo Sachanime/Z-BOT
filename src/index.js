@@ -260,7 +260,7 @@ async function startBot() {
                 levelUser.xp += xpGained
                 await db.write()
 
-                if(levelUser.xp == levelUser.xpgoal) {
+                if(levelUser.xp >= levelUser.xpgoal) {
 
                     levelUpEmbed.setDescription("<@" + levelUser.id + "> vient de passer niveau " + (levelUser.level + 1))
 
