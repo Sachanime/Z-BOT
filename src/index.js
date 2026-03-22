@@ -3,8 +3,8 @@ const { Low } = require("lowdb")
 const { JSONFile } = require("lowdb/node")
 //const { createCanvas, loadImage } = require("canvas")
 
-//const ID = require("./ID.json")
-const ID = require("../src-beta/ID-beta.json")
+const ID = require("./ID.json")
+//const ID = require("../src-beta/ID-beta.json")
 const Token = require("./token.json")
 const package = require("../package.json")
 const packagelock = require("../package-lock.json")
@@ -19,7 +19,7 @@ const voiceTimer = new Map()
 
 async function startBot() {
     
-    client.login(Token.Beta)
+    client.login(Token.ZBOT)
     await db.read()
 
     let usersDb = db.data.users
