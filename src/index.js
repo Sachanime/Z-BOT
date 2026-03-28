@@ -1,7 +1,8 @@
-const { Client, MessageType, ActivityType } = require("discord.js")
+const { Client, MessageType, ActivityType, AttachmentBuilder } = require("discord.js")
 const { Low } = require("lowdb")
 const { JSONFile } = require("lowdb/node")
-//const { createCanvas, loadImage } = require("canvas")
+const { createCanvas, loadImage, registerFont } = require("canvas")
+const fs = require('fs')
 
 const ID = require("./ID.json")
 //const ID = require("../src-beta/ID-beta.json")
@@ -14,8 +15,11 @@ const client = new Client({ intents: [3276799] })
 const adapter = new JSONFile(ID.DB.Main)
 const db = new Low(adapter, { users: [], mainDoc: [] })
 const voiceTimer = new Map()
-//const canvas = createCanvas(200, 200)
-//const ctx = canvas.getContext("2d")
+
+registerFont('./Fonts/gg sans Bold.ttf', { family: 'Discord', weight: 'bold' })
+registerFont('./Fonts/gg sans Medium.ttf', { family: 'Discord', weight: 'normal'})
+registerFont('./Fonts/gg sans Regular.ttf', { family: 'Discord', weight: 'lighter' })
+registerFont('./Fonts/gg sans Semibold.ttf', { family: 'Discord', weight: 'semibold' })
 
 async function startBot() {
     
@@ -173,30 +177,34 @@ async function startBot() {
 
         }
 
-    //    if(commandName == "test") {
-    //
-    //        //Write "Awesome!"
-    //        ctx.font = "30px Impact"
-    //        ctx.rotate(0.1)
-    //        ctx.fillText("Awesome!", 50, 100)
-    //
-    //        //Draw line under text
-    //        var text = ctx.measureText("Awesome!")
-    //        ctx.strokeStyle = "rgba(0,0,0,0.5)"
-    //        ctx.beginPath()
-    //        ctx.lineTo(50, 102)
-    //        ctx.lineTo(50 + text.width, 102)
-    //        ctx.stroke()
-    //
-    //        //Draw Image
-    //        loadImage("https://www.shutterstock.com/image-vector/awesome-colorful-vector-typography-banner-260nw-2311221975.jpg").then((image) => {
-    //
-    //            ctx.drawImage(image, 50, 0, 70, 70)
-    //            console.log('<img src="' + canvas.toDataURL() + '" />')
-    //
-    //        })
-    //
-    //    }
+        if(commandName == "test"  && interaction.user.id == ID.Clients.Sacha) {
+
+            await interaction.deferReply()
+
+            const canvas = createCanvas(400, 200)
+            const ctx = canvas.getContext("2d")
+            const avatarURL = client.guilds.cache.get(ID.Servers.ZSPY).members.cache.get(ID.Clients.ZBOT).user.displayAvatarURL({ extension: 'png', size: 256 })
+            const avatarCanvaImage = await loadImage(avatarURL)
+
+            ctx.fillStyle = '#2c3e50'
+            ctx.fillRect(0, 0, 400, 200)
+            ctx.font = 'bold 25px Discord'
+            ctx.fillStyle = '#FFFFFF'
+            ctx.textBaseline = 'middle'
+            ctx.fillText("Comming soon...", 150, 100)
+            ctx.fillRect(150)
+            ctx.beginPath();
+            ctx.arc(75, 100, 50, 0, Math.PI * 2, true)
+            ctx.closePath()
+            ctx.clip()
+            ctx.drawImage(avatarCanvaImage, 25, 50, 100, 100)
+
+            const buffer = canvas.toBuffer('image/png')
+            const attachment = new AttachmentBuilder(buffer, { name: 'test.png' })
+
+            await interaction.editReply({ files: [attachment] })
+
+        }
 
     })
 
