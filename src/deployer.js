@@ -1,9 +1,14 @@
 const { SlashCommandBuilder, Routes } = require("discord.js")
 const { REST } = require("@discordjs/rest")
 const ID = require("./ID.json")
+//const ID = require("../src-beta/ID-beta.json")
 const Token = require("./token.json")
 
 const commands = [
+
+    new SlashCommandBuilder()
+    .setName("test")
+    .setDescription("Test command"),
 
     new SlashCommandBuilder()
     .setName("infos")
