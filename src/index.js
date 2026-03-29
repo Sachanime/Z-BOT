@@ -10,7 +10,7 @@ const Token = require("./token.json")
 const package = require("../package.json")
 const packagelock = require("../package-lock.json")
 const { levelUpEmbed, levelGoalEmbed, createInfosEmbed, createLevelEmbed, createChangelogEmbed, createChangelogErrorEmbed, createConnectEmbed } = require("./embeds.js")
-const { createTestCanvas } = require("./canvas.js")
+const { createTestCanvas, createLevelCanvas } = require("./canvas.js")
 
 const client = new Client({ intents: [3276799] })
 const adapter = new JSONFile(ID.DB.Main)
@@ -178,12 +178,23 @@ async function startBot() {
 
         }
 
-        if(commandName == "test"  && interaction.user.id == ID.Clients.Sacha) {
+        if(commandName == "oldTest"  && interaction.user.id == ID.Clients.Sacha) {
 
             await interaction.deferReply()
 
             const buffer = await createTestCanvas(client, ID)
             const attachment = new AttachmentBuilder(buffer, { name: 'test.png' })
+
+            await interaction.editReply({ files: [attachment] })
+
+        }
+
+        if(commandName == "test" && interaction.user.id == ID.Clients.Sacha) {
+
+            await interaction.deferReply()
+
+            const buffer = await createLevelCanvas(interaction.user)
+            const attachment = new AttachmentBuilder(buffer, { name: "test.png" })
 
             await interaction.editReply({ files: [attachment] })
 

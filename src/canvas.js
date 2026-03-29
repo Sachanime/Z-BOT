@@ -24,4 +24,27 @@ async function createTestCanvas(client, ID) {
 
 }
 
-module.exports = { createTestCanvas }
+async function createLevelCanvas(userData) {
+
+    const canvas = createCanvas(400, 100)
+    const ctx = canvas.getContext("2d")
+    const avatarURL = userData.displayAvatarURL({ extension: "png", size: 64 })
+    const avatarCanvasImage = await loadImage(avatarURL)
+
+    ctx.fillStyle = "#2c3e50"
+    ctx.fillRect(0, 0, 400, 100)
+    ctx.fillStyle = "#00FFFF"
+    ctx.beginPath()
+    ctx.roundRect(100, 45, 275, 10, 5)
+    ctx.fill()
+    ctx.arc(50, 50, 25, 0, Math.PI * 2, true)
+    ctx.closePath()
+    ctx.clip()
+    ctx.drawImage(avatarCanvasImage, 25, 25, 50, 50)
+
+    const buffer = canvas.toBuffer("image/png")
+    return(buffer)
+
+}
+
+module.exports = { createTestCanvas, createLevelCanvas }
