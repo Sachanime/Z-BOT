@@ -10,6 +10,7 @@ const Token = require("./token.json")
 const package = require("../package.json")
 const packagelock = require("../package-lock.json")
 const { levelUpEmbed, levelGoalEmbed, createInfosEmbed, createLevelEmbed, createChangelogEmbed, createChangelogErrorEmbed, createConnectEmbed } = require("./embeds.js")
+const { createTestCanvas } = require("./canvas.js")
 
 const client = new Client({ intents: [3276799] })
 const adapter = new JSONFile(ID.DB.Main)
@@ -181,25 +182,7 @@ async function startBot() {
 
             await interaction.deferReply()
 
-            const canvas = createCanvas(400, 200)
-            const ctx = canvas.getContext("2d")
-            const avatarURL = client.guilds.cache.get(ID.Servers.ZSPY).members.cache.get(ID.Clients.ZBOT).user.displayAvatarURL({ extension: 'png', size: 256 })
-            const avatarCanvaImage = await loadImage(avatarURL)
-
-            ctx.fillStyle = '#2c3e50'
-            ctx.fillRect(0, 0, 400, 200)
-            ctx.font = 'bold 25px Discord'
-            ctx.fillStyle = '#FFFFFF'
-            ctx.textBaseline = 'middle'
-            ctx.fillText("Comming soon...", 150, 100)
-            ctx.fillRect(150)
-            ctx.beginPath();
-            ctx.arc(75, 100, 50, 0, Math.PI * 2, true)
-            ctx.closePath()
-            ctx.clip()
-            ctx.drawImage(avatarCanvaImage, 25, 50, 100, 100)
-
-            const buffer = canvas.toBuffer('image/png')
+            const buffer = await createTestCanvas(client, ID)
             const attachment = new AttachmentBuilder(buffer, { name: 'test.png' })
 
             await interaction.editReply({ files: [attachment] })
