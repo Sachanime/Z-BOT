@@ -250,11 +250,11 @@ async function startBot() {
 
         const member = newState.member.user
 
-        if(newState.channel != null) {
+        if(newState.channel != null && ID.voiceChannelsWhiteList.includes(newState.channel.id)) {
             voiceTimer.set(member.id, Date.now())
         }
 
-        if(newState.channel == null) {
+        if(newState.channel == null && ID.voiceChannelsWhiteList.includes(oldState.channel.id)) {
 
             const joinTime = voiceTimer.get(member.id)
             const timeSpentMs = Date.now() - joinTime
