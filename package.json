@@ -11,7 +11,7 @@
   "dependencies": {
     "@discordjs/rest": "^2.6.0",
     "canvas": "^3.2.2",
-    "discord.js": "^14.25.1",
+    "discord.js": "^14.26.0",
     "lowdb": "^7.0.1"
   }
 }
