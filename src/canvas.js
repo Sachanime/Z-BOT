@@ -31,14 +31,30 @@ async function createLevelCanvas(userData) {
     const avatarURL = userData.displayAvatarURL({ extension: "png", size: 64 })
     const avatarCanvasImage = await loadImage(avatarURL)
 
+    //Fond
     ctx.fillStyle = "#2c3e50"
     ctx.fillRect(0, 0, 400, 100)
-    ctx.fillStyle = "#00FFFF"
+
+    //Barre
     ctx.beginPath()
     ctx.roundRect(100, 45, 275, 10, 5)
+    ctx.fillStyle = "#F00"
     ctx.fill()
+    ctx.closePath()
+
+    //Demi Barre
+    ctx.beginPath()
+    ctx.roundRect(100, 45, 275/2, 10, 5)
+    ctx.fillStyle = "#0FF"
+    ctx.fill()
+    ctx.closePath
+
+    //Cercle
+    ctx.beginPath()
     ctx.arc(50, 50, 25, 0, Math.PI * 2, true)
     ctx.closePath()
+
+    //PP
     ctx.clip()
     ctx.drawImage(avatarCanvasImage, 25, 25, 50, 50)
 
