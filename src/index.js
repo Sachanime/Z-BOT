@@ -191,9 +191,14 @@ async function startBot() {
 
         if(commandName == "test" && interaction.user.id == ID.Clients.Sacha) {
 
+            const userData = usersDb.find(u => u.id == interaction.user.id)
+            const xp = userData.xp
+            const xpGoal = userData.xpgoal
+            const level = userData.level
+
             await interaction.deferReply()
 
-            const buffer = await createLevelCanvas(interaction.user)
+            const buffer = await createLevelCanvas(interaction.user, xp, xpGoal, level)
             const attachment = new AttachmentBuilder(buffer, { name: "test.png" })
 
             await interaction.editReply({ files: [attachment] })

@@ -24,12 +24,13 @@ async function createTestCanvas(client, ID) {
 
 }
 
-async function createLevelCanvas(userData) {
+async function createLevelCanvas(userData, xp, xpGoal, level) {
 
     const canvas = createCanvas(400, 100)
     const ctx = canvas.getContext("2d")
     const avatarURL = userData.displayAvatarURL({ extension: "png", size: 64 })
     const avatarCanvasImage = await loadImage(avatarURL)
+    const fillXp = xp * 275 / xpGoal
 
     //Fond
     ctx.fillStyle = "#2c3e50"
@@ -37,17 +38,36 @@ async function createLevelCanvas(userData) {
 
     //Barre
     ctx.beginPath()
-    ctx.roundRect(100, 45, 275, 10, 5)
-    ctx.fillStyle = "#F00"
+    ctx.roundRect(100, 55, 275, 10, 5)
+    ctx.fillStyle = "#1B2631"
     ctx.fill()
     ctx.closePath()
 
     //Demi Barre
     ctx.beginPath()
-    ctx.roundRect(100, 45, 275/2, 10, 5)
-    ctx.fillStyle = "#0FF"
+    ctx.roundRect(100, 55, fillXp, 10, 5)
+    ctx.fillStyle = "#5DADBC"
     ctx.fill()
     ctx.closePath
+
+    //Texte Level
+    ctx.font = "bold 20px Discord"
+    ctx.fillStyle = "#FFF"
+    ctx.textBaseline = "middle"
+    ctx.fillText("Niveau " + level, 100, 40)
+
+    //Texte XP Current
+    ctx.font = "bold 10px Discord"
+    ctx.fillStyle = "#FFF"
+    ctx.textBaseline = "middle"
+    ctx.fillText(xp + "xp", 100, 75)
+
+    //Texte XP Goal
+    ctx.font = "bold 10px Discord"
+    ctx.fillStyle = "#FFF"
+    ctx.textAlign = "right"
+    ctx.textBaseline = "middle"
+    ctx.fillText(xpGoal + "xp", 375, 75)
 
     //Cercle
     ctx.beginPath()
