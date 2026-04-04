@@ -142,14 +142,6 @@ async function startBot() {
 
         }
 
-        if(commandName == "level") {
-
-            const levelUser = usersDb.find(u => u.id == interaction.user.id)
-            const levelEmbed = createLevelEmbed(levelUser)
-            interaction.reply({ embeds: [levelEmbed] })
-
-        }
-
         if(commandName == "changelog") {
 
             try {
@@ -189,19 +181,40 @@ async function startBot() {
 
         }
 
-        if(commandName == "test" && interaction.user.id == ID.Clients.Sacha) {
+        if(commandName == "level" && interaction.user.id == ID.Clients.Sacha) {
 
-            const userData = usersDb.find(u => u.id == interaction.user.id)
-            const xp = userData.xp
-            const xpGoal = userData.xpgoal
-            const level = userData.level
+            if(interaction.options.getUser("user")) {
 
-            await interaction.deferReply()
+                const userTarget = interaction.options.getUser("user")
+                const userData = usersDb.find(u => u.id == userTarget.id)
+                const xp = userData.xp
+                const xpGoal = userData.xpgoal
+                const level = userData.level
 
-            const buffer = await createLevelCanvas(interaction.user, xp, xpGoal, level)
-            const attachment = new AttachmentBuilder(buffer, { name: "test.png" })
+                await interaction.deferReply()
 
-            await interaction.editReply({ files: [attachment] })
+                const buffer = await createLevelCanvas(interaction.user, xp, xpGoal, level)
+                const attachment = new AttachmentBuilder(buffer, { name: "test.png" })
+
+                await interaction.editReply({ files: [attachment] })
+
+            }
+
+            else {
+
+                const userData = usersDb.find(u => u.id == interaction.user.id)
+                const xp = userData.xp
+                const xpGoal = userData.xpgoal
+                const level = userData.level
+
+                await interaction.deferReply()
+
+                const buffer = await createLevelCanvas(interaction.user, xp, xpGoal, level)
+                const attachment = new AttachmentBuilder(buffer, { name: "test.png" })
+
+                await interaction.editReply({ files: [attachment] })
+
+            }
 
         }
 

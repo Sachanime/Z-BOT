@@ -1,7 +1,7 @@
 const { SlashCommandBuilder, Routes } = require("discord.js")
 const { REST } = require("@discordjs/rest")
-const ID = require("./ID.json")
-//const ID = require("../src-beta/ID-beta.json")
+//const ID = require("./ID.json")
+const ID = require("./ID-beta.json")
 const Token = require("./token.json")
 
 const commands = [
@@ -16,7 +16,12 @@ const commands = [
 
     new SlashCommandBuilder()
     .setName("level")
-    .setDescription("Obtenir des informations sur votre level"),
+    .setDescription("Obtenir des informations sur votre level")
+    .addUserOption(option => option
+        .setName("user")
+        .setDescription("Test")
+        .setRequired(false)
+    ),
 
     //.addSubcommand(subcommand => subcommand
     //    .setName("give_xp")
@@ -61,6 +66,6 @@ const commands = [
 
 .map(command => command.toJSON())
 
-const rest = new REST({ version: "10" }).setToken(Token.ZBOT)
+const rest = new REST({ version: "10" }).setToken(Token.Beta)
 
 rest.put(Routes.applicationCommands(ID.Clients.ZBOT), { body: commands }).then((data) => console.log(`Sucessfully registered ${data.length} application commands`)).catch(console.error)
