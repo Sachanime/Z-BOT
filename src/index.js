@@ -193,7 +193,7 @@ async function startBot() {
 
                 await interaction.deferReply()
 
-                const buffer = await createLevelCanvas(interaction.user, xp, xpGoal, level)
+                const buffer = await createLevelCanvas(userTarget, xp, xpGoal, level)
                 const attachment = new AttachmentBuilder(buffer, { name: "test.png" })
 
                 await interaction.editReply({ files: [attachment] })
