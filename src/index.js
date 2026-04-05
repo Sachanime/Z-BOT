@@ -1,7 +1,7 @@
 const { Client, MessageType, ActivityType, AttachmentBuilder } = require("discord.js")
 const { Low } = require("lowdb")
 const { JSONFile } = require("lowdb/node")
-const { createCanvas, loadImage, registerFont } = require("canvas")
+const { registerFont } = require("canvas")
 const fs = require('fs')
 
 const ID = require("./ID.json")
