@@ -45,6 +45,7 @@ function createLevelEmbed(levelUser) {
 function createChangelogEmbed(data) {
 
     return new EmbedBuilder()
+    .setTitle(data.name)
     .setDescription(data.body)
     .setColor("Blue")
 
