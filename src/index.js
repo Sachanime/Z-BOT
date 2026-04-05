@@ -17,10 +17,10 @@ const adapter = new JSONFile(ID.DB.Main)
 const db = new Low(adapter, { users: [], mainDoc: [] })
 const voiceTimer = new Map()
 
-registerFont('./Fonts/gg sans Bold.ttf', { family: 'Discord', weight: 'bold' })
-registerFont('./Fonts/gg sans Medium.ttf', { family: 'Discord', weight: 'normal'})
-registerFont('./Fonts/gg sans Regular.ttf', { family: 'Discord', weight: 'lighter' })
-registerFont('./Fonts/gg sans Semibold.ttf', { family: 'Discord', weight: 'semibold' })
+registerFont('../Fonts/gg sans Bold.ttf', { family: 'Discord', weight: 'bold' })
+registerFont('../Fonts/gg sans Medium.ttf', { family: 'Discord', weight: 'normal'})
+registerFont('../Fonts/gg sans Regular.ttf', { family: 'Discord', weight: 'lighter' })
+registerFont('../Fonts/gg sans Semibold.ttf', { family: 'Discord', weight: 'semibold' })
 
 async function startBot() {
     
