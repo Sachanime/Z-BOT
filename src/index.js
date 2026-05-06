@@ -181,7 +181,7 @@ async function startBot() {
 
         }
 
-        if(commandName == "level" && interaction.user.id == ID.Clients.Sacha) {
+        if(commandName == "level") {
 
             if(interaction.options.getUser("user")) {
 
