@@ -2,10 +2,11 @@ const { Client, MessageType, ActivityType, AttachmentBuilder } = require("discor
 const { Low } = require("lowdb")
 const { JSONFile } = require("lowdb/node")
 const { registerFont } = require("canvas")
-const fs = require('fs')
+const SmeeClient = require('smee-client')
+const express = require('express')
 
-const ID = require("./ID.json")
-//const ID = require("../src-beta/ID-beta.json")
+//const ID = require("./ID.json")
+const ID = require("./ID-beta.json")
 const Token = require("./token.json")
 const package = require("../package.json")
 const packagelock = require("../package-lock.json")
@@ -16,40 +17,45 @@ const client = new Client({ intents: [3276799] })
 const adapter = new JSONFile(ID.DB.Main)
 const db = new Low(adapter, { users: [], mainDoc: [] })
 const voiceTimer = new Map()
+const smee = new SmeeClient({ source: "https://smee.io/ZRI2krsvVDOZyNZR", target: "http://localhost:3000/events", logger: console })
+const expressApp = express()
 
+//Register fonts for Canvas
 registerFont('../Fonts/gg sans Bold.ttf', { family: 'Discord', weight: 'bold' })
 registerFont('../Fonts/gg sans Medium.ttf', { family: 'Discord', weight: 'normal'})
 registerFont('../Fonts/gg sans Regular.ttf', { family: 'Discord', weight: 'lighter' })
 registerFont('../Fonts/gg sans Semibold.ttf', { family: 'Discord', weight: 'semibold' })
 
 async function startBot() {
+
+    console.log(" ____  _  ___       ____                                          ")
+    console.log("/ ___|| |/ / |     |  _ \\ _ __ ___   __ _ _ __ __ _ _ __ ___  ___ ")
+    console.log("\\___ \\| ' /| |     | |_) | '__/ _ \\ / _` | '__/ _` | '_ ` _ \\/ __|")
+    console.log(" ___) | . \\| |___  |  __/| | | (_) | (_| | | | (_| | | | | | \\__ \\")
+    console.log("|____/|_|\\_\\_____| |_|   |_|  \\___/ \\__, |_|  \\__,_|_| |_| |_|___/")
+    console.log("                                    |___/                         ")
+
+    console.log("   ")
+
+    console.log(" _____     ____   ___ _____ ")
+    console.log("|__  /    | __ ) / _ \\_   _|")
+    console.log("  / /_____|  _ \\| | | || |  ")
+    console.log(" / /|_____| |_) | |_| || |  ")
+    console.log("/____|    |____/ \\___/ |_|  ")
+    console.log("   ")
+
+    const GithubEvents = smee.start()
+    expressApp.use(express.json())
     
-    client.login(Token.ZBOT)
+    client.login(Token.Beta)
     await db.read()
 
     let usersDb = db.data.users
 
     //Start System
-    client.once("clientReady", async () => {
-
-        console.log(" ____  _  ___       ____                                          ")
-        console.log("/ ___|| |/ / |     |  _ \\ _ __ ___   __ _ _ __ __ _ _ __ ___  ___ ")
-        console.log("\\___ \\| ' /| |     | |_) | '__/ _ \\ / _` | '__/ _` | '_ ` _ \\/ __|")
-        console.log(" ___) | . \\| |___  |  __/| | | (_) | (_| | | | (_| | | | | | \\__ \\")
-        console.log("|____/|_|\\_\\_____| |_|   |_|  \\___/ \\__, |_|  \\__,_|_| |_| |_|___/")
-        console.log("                                    |___/                         ")
-
-        console.log("   ")
-
-        console.log(" _____     ____   ___ _____ ")
-        console.log("|__  /    | __ ) / _ \\_   _|")
-        console.log("  / /_____|  _ \\| | | || |  ")
-        console.log(" / /|_____| |_) | |_| || |  ")
-        console.log("/____|    |____/ \\___/ |_|  ")
-        console.log("   ")
+    client.once("clientReady", () => {
 
         console.log("Z-BOT : 🟢 - Connected")
-
         client.user.setPresence({ activities: [{ name: "Z-SPY Discord Server", type: ActivityType.Watching }] })
 
     })
@@ -324,6 +330,23 @@ async function startBot() {
         }
 
     })
+
+    expressApp.post('/events', (req, res) => {
+
+        const { action, issue, repository } = req.body
+
+        if(action == "opened") {
+
+            const issueChannel = client.guilds.cache.get(ID.Servers.ZSPY).channels.cache.get(ID.Channels.Test)
+            issueChannel.send("**Nouvelle issue** : " + issue.title + " dans " + repository.full_name + " (" + issue.html_url + ")")
+
+        }
+
+        res.status(200).send('OK')
+
+    })
+
+    expressApp.listen(3000, () => console.log("Express listening on port 3000"))
 
 }
 
