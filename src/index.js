@@ -17,7 +17,7 @@ const client = new Client({ intents: [3276799] })
 const adapter = new JSONFile(ID.DB.Main)
 const db = new Low(adapter, { users: [], mainDoc: [] })
 const voiceTimer = new Map()
-const smee = new SmeeClient({ source: "https://smee.io/ZRI2krsvVDOZyNZR", target: "http://localhost:3000/events", logger: console })
+//const smee = new SmeeClient({ source: "https://smee.io/ZRI2krsvVDOZyNZR", target: "http://localhost:3000/events", logger: console })
 const expressApp = express()
 
 //Register fonts for Canvas
@@ -44,7 +44,7 @@ async function startBot() {
     console.log("/____|    |____/ \\___/ |_|  ")
     console.log("   ")
 
-    const GithubEvents = smee.start()
+    //const GithubEvents = smee.start()
     expressApp.use(express.json())
     
     client.login(Token.Beta)
