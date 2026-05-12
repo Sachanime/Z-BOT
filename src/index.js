@@ -337,7 +337,7 @@ async function startBot() {
 
         if(action == "opened") {
 
-            const issueChannel = client.guilds.cache.get(ID.Servers.ZSPY).channels.cache.get(ID.Channels.Test)
+            const issueChannel = client.guilds.cache.get(ID.Servers.ZSPY).channels.cache.get(ID.Channels.Logs)
             issueChannel.send("**Nouvelle issue** : " + issue.title + " dans " + repository.full_name + " (" + issue.html_url + ")")
 
         }
