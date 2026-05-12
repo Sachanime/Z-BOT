@@ -10,14 +10,14 @@ const ID = require("./ID-beta.json")
 const Token = require("./token.json")
 const package = require("../package.json")
 const packagelock = require("../package-lock.json")
-const { levelUpEmbed, levelGoalEmbed, createInfosEmbed, createLevelEmbed, createChangelogEmbed, createChangelogErrorEmbed, createConnectEmbed } = require("./embeds.js")
+const { levelUpEmbed, levelGoalEmbed, createInfosEmbed, createLevelEmbed, createChangelogEmbed, createChangelogErrorEmbed, createConnectEmbed, createGithubIssueEmebed } = require("./embeds.js")
 const { createTestCanvas, createLevelCanvas } = require("./canvas.js")
 
 const client = new Client({ intents: [3276799] })
 const adapter = new JSONFile(ID.DB.Main)
 const db = new Low(adapter, { users: [], mainDoc: [] })
 const voiceTimer = new Map()
-//const smee = new SmeeClient({ source: "https://smee.io/ZRI2krsvVDOZyNZR", target: "http://localhost:3000/events", logger: console })
+const smee = new SmeeClient({ source: "https://smee.io/ZRI2krsvVDOZyNZR", target: "http://localhost:3000/events", logger: console })
 const expressApp = express()
 
 //Register fonts for Canvas
@@ -44,7 +44,7 @@ async function startBot() {
     console.log("/____|    |____/ \\___/ |_|  ")
     console.log("   ")
 
-    //const GithubEvents = smee.start()
+    const GithubEvents = smee.start()
     expressApp.use(express.json())
     
     client.login(Token.Beta)
@@ -55,7 +55,7 @@ async function startBot() {
     //Start System
     client.once("clientReady", () => {
 
-        console.log("Z-BOT : 🟢 - Connected")
+        console.log("Connected to Z-BOT")
         client.user.setPresence({ activities: [{ name: "Z-SPY Discord Server", type: ActivityType.Watching }] })
 
     })
@@ -338,7 +338,8 @@ async function startBot() {
         if(action == "opened") {
 
             const issueChannel = client.guilds.cache.get(ID.Servers.ZSPY).channels.cache.get(ID.Channels.Logs)
-            issueChannel.send("**Nouvelle issue** : " + issue.title + " dans " + repository.full_name + " (" + issue.html_url + ")")
+            const githubIssueEmebed = createGithubIssueEmebed(req.body)
+            issueChannel.send({ embeds: [ githubIssueEmebed ] })
 
         }
 

@@ -69,4 +69,16 @@ function createConnectEmbed(package) {
 
 }
 
-module.exports = { levelUpEmbed, levelGoalEmbed, createInfosEmbed, createLevelEmbed, createChangelogEmbed, createChangelogErrorEmbed, createConnectEmbed }
+function createGithubIssueEmebed(data) {
+
+    return new EmbedBuilder()
+    .setTitle(data.issue.title)
+    .setDescription(data.issue.body)
+    .setAuthor({ name: "New issue on " + data.repository.full_name, url: data.repository.html_url, iconURL: "https://github.com/fluidicon.png" })
+    .setFooter({ text: "Openned by " + data.sender.login, iconURL: data.sender.avatar_url })
+    .setURL(data.issue.html_url)
+    .setColor("Red")
+
+}
+
+module.exports = { levelUpEmbed, levelGoalEmbed, createInfosEmbed, createLevelEmbed, createChangelogEmbed, createChangelogErrorEmbed, createConnectEmbed, createGithubIssueEmebed }
