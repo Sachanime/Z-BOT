@@ -17,7 +17,8 @@ const client = new Client({ intents: [3276799] })
 const adapter = new JSONFile(ID.DB.Main)
 const db = new Low(adapter, { users: [], mainDoc: [] })
 const voiceTimer = new Map()
-const smee = new SmeeClient({ source: "https://smee.io/ZRI2krsvVDOZyNZR", target: "http://localhost:3000/events", logger: console })
+const smeeIssues = new SmeeClient({ source: "https://smee.io/ZRI2krsvVDOZyNZR", target: "http://localhost:3000/issues", logger: console })
+const smeePR = new SmeeClient({ source: "https://smee.io/NflpDhhAxl9J2s1A", target: "http://localhost:3000/pullRequests", logger: console })
 const expressApp = express()
 
 //Register fonts for Canvas
@@ -44,7 +45,8 @@ async function startBot() {
     console.log("/____|    |____/ \\___/ |_|  ")
     console.log("   ")
 
-    const GithubEvents = smee.start()
+    const githubIssuesEvent = smeeIssues.start()
+    const githubPREvent = smeePR.start()
     expressApp.use(express.json())
     
     client.login(Token.Beta)
@@ -331,7 +333,7 @@ async function startBot() {
 
     })
 
-    expressApp.post('/events', (req, res) => {
+    expressApp.post('/issues', (req, res) => {
 
         const { action, issue, repository } = req.body
 
@@ -340,6 +342,20 @@ async function startBot() {
             const issueChannel = client.guilds.cache.get(ID.Servers.ZSPY).channels.cache.get(ID.Channels.Logs)
             const githubIssueEmebed = createGithubIssueEmebed(req.body)
             issueChannel.send({ embeds: [ githubIssueEmebed ] })
+
+        }
+
+        res.status(200).send('OK')
+
+    })
+
+    expressApp.post('/pullRequests', (req, res) => {
+
+        if(req.body.action == "opened") {
+
+            const issueChannel = client.guilds.cache.get(ID.Servers.ZSPY).channels.cache.get(ID.Channels.Logs)
+            const githubPREmbed = createGithubPREmbed(req.body)
+            issueChannel.send({ embeds: [githubPREmbed] })
 
         }
 
