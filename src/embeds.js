@@ -81,4 +81,16 @@ function createGithubIssueEmebed(data) {
 
 }
 
-module.exports = { levelUpEmbed, levelGoalEmbed, createInfosEmbed, createLevelEmbed, createChangelogEmbed, createChangelogErrorEmbed, createConnectEmbed, createGithubIssueEmebed }
+function createGithubPREmbed(data) {
+
+    return new EmbedBuilder()
+    .setTitle(data.pull_request.title)
+    .setDescription(data.pull_request.body)
+    .setAuthor({ name: "Pull Request", iconURL: "https://github.com/fluidicon.png" })
+    .setFooter({ text: "Openned by " + data.sender.login + " | " + data.repository.full_name, iconURL: data.sender.avatar_url })
+    .setURL(data.pull_request.html_url)
+    .setColor("Blue")
+
+}
+
+module.exports = { levelUpEmbed, levelGoalEmbed, createInfosEmbed, createLevelEmbed, createChangelogEmbed, createChangelogErrorEmbed, createConnectEmbed, createGithubIssueEmebed, createGithubPREmbed }
