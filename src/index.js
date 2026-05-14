@@ -351,9 +351,11 @@ async function startBot() {
 
     expressApp.post('/pullRequests', (req, res) => {
 
+        console.log(req.body)
+        const githubPREmbed = createGithubPREmbed(req.body)
+
         if(req.body.action == "opened") {
 
-            const githubPREmbed = createGithubPREmbed(req.body)
             issueChannel.send({ embeds: [githubPREmbed] })
 
         }
