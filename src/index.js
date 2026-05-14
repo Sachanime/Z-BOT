@@ -356,6 +356,25 @@ async function startBot() {
 
         if(req.body.action == "opened") {
 
+            issueChannel.send("A pull request was openned and must be reviewed")
+            issueChannel.send({ embeds: [githubPREmbed] })
+
+        }
+
+        if(req.body.action == "submitted") {
+
+            if(req.body.review.state == "approved") {
+
+                issueChannel.send("The changes was approved and the pull request is ready to be merged")
+                issueChannel.send({ embeds: [githubPREmbed] })
+
+            }
+
+        }
+
+        if(req.body.action == "dismissed") {
+
+            issueChannel.send("Changes was commited and the pull request must be reviewed")
             issueChannel.send({ embeds: [githubPREmbed] })
 
         }
