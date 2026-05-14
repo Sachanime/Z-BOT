@@ -351,7 +351,7 @@ async function startBot() {
 
     expressApp.post('/pullRequests', (req, res) => {
 
-        console.log(req.body)
+        console.log(req.body) //Debug
         const githubPREmbed = createGithubPREmbed(req.body)
 
         if(req.body.action == "opened") {
