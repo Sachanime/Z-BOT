@@ -338,9 +338,7 @@ async function startBot() {
 
     expressApp.post('/issues', (req, res) => {
 
-        const { action, issue, repository } = req.body
-
-        if(action == "opened") {
+        if(req.body.action == "opened") {
 
             const githubIssueEmebed = createGithubIssueEmebed(req.body)
             issueChannel.send({ embeds: [ githubIssueEmebed ] })
