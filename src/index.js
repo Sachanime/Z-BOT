@@ -53,12 +53,15 @@ async function startBot() {
     await db.read()
 
     let usersDb = db.data.users
+    let issueChannel
 
     //Start System
     client.once("clientReady", () => {
 
         console.log("Connected to Z-BOT")
         client.user.setPresence({ activities: [{ name: "Z-SPY Discord Server", type: ActivityType.Watching }] })
+
+        issueChannel = client.guilds.cache.get(ID.Servers.ZSPY).channels.cache.get(ID.Channels.Logs)
 
     })
 
@@ -339,7 +342,6 @@ async function startBot() {
 
         if(action == "opened") {
 
-            const issueChannel = client.guilds.cache.get(ID.Servers.ZSPY).channels.cache.get(ID.Channels.Logs)
             const githubIssueEmebed = createGithubIssueEmebed(req.body)
             issueChannel.send({ embeds: [ githubIssueEmebed ] })
 
@@ -353,7 +355,6 @@ async function startBot() {
 
         if(req.body.action == "opened") {
 
-            const issueChannel = client.guilds.cache.get(ID.Servers.ZSPY).channels.cache.get(ID.Channels.Logs)
             const githubPREmbed = createGithubPREmbed(req.body)
             issueChannel.send({ embeds: [githubPREmbed] })
 
