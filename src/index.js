@@ -2,55 +2,66 @@ const { Client, MessageType, ActivityType, AttachmentBuilder } = require("discor
 const { Low } = require("lowdb")
 const { JSONFile } = require("lowdb/node")
 const { registerFont } = require("canvas")
-const fs = require('fs')
+const SmeeClient = require('smee-client')
+const express = require('express')
 
-const ID = require("./ID.json")
-//const ID = require("../src-beta/ID-beta.json")
+//const ID = require("./ID.json")
+const ID = require("./ID-beta.json")
 const Token = require("./token.json")
 const package = require("../package.json")
 const packagelock = require("../package-lock.json")
-const { levelUpEmbed, levelGoalEmbed, createInfosEmbed, createLevelEmbed, createChangelogEmbed, createChangelogErrorEmbed, createConnectEmbed } = require("./embeds.js")
+const { levelUpEmbed, levelGoalEmbed, createInfosEmbed, createLevelEmbed, createChangelogEmbed, createChangelogErrorEmbed, createConnectEmbed, createGithubIssueEmebed, createGithubPREmbed } = require("./embeds.js")
 const { createTestCanvas, createLevelCanvas } = require("./canvas.js")
 
 const client = new Client({ intents: [3276799] })
 const adapter = new JSONFile(ID.DB.Main)
 const db = new Low(adapter, { users: [], mainDoc: [] })
 const voiceTimer = new Map()
+const smeeIssues = new SmeeClient({ source: "https://smee.io/ZRI2krsvVDOZyNZR", target: "http://localhost:3000/issues", logger: console })
+const smeePR = new SmeeClient({ source: "https://smee.io/NflpDhhAxl9J2s1A", target: "http://localhost:3000/pullRequests", logger: console })
+const expressApp = express()
 
+//Register fonts for Canvas
 registerFont('../Fonts/gg sans Bold.ttf', { family: 'Discord', weight: 'bold' })
 registerFont('../Fonts/gg sans Medium.ttf', { family: 'Discord', weight: 'normal'})
 registerFont('../Fonts/gg sans Regular.ttf', { family: 'Discord', weight: 'lighter' })
 registerFont('../Fonts/gg sans Semibold.ttf', { family: 'Discord', weight: 'semibold' })
 
 async function startBot() {
+
+    console.log(" ____  _  ___       ____                                          ")
+    console.log("/ ___|| |/ / |     |  _ \\ _ __ ___   __ _ _ __ __ _ _ __ ___  ___ ")
+    console.log("\\___ \\| ' /| |     | |_) | '__/ _ \\ / _` | '__/ _` | '_ ` _ \\/ __|")
+    console.log(" ___) | . \\| |___  |  __/| | | (_) | (_| | | | (_| | | | | | \\__ \\")
+    console.log("|____/|_|\\_\\_____| |_|   |_|  \\___/ \\__, |_|  \\__,_|_| |_| |_|___/")
+    console.log("                                    |___/                         ")
+
+    console.log("   ")
+
+    console.log(" _____     ____   ___ _____ ")
+    console.log("|__  /    | __ ) / _ \\_   _|")
+    console.log("  / /_____|  _ \\| | | || |  ")
+    console.log(" / /|_____| |_) | |_| || |  ")
+    console.log("/____|    |____/ \\___/ |_|  ")
+    console.log("   ")
+
+    const githubIssuesEvent = smeeIssues.start()
+    const githubPREvent = smeePR.start()
+    expressApp.use(express.json())
     
-    client.login(Token.ZBOT)
+    client.login(Token.Beta)
     await db.read()
 
     let usersDb = db.data.users
+    let issueChannel
 
     //Start System
-    client.once("clientReady", async () => {
+    client.once("clientReady", () => {
 
-        console.log(" ____  _  ___       ____                                          ")
-        console.log("/ ___|| |/ / |     |  _ \\ _ __ ___   __ _ _ __ __ _ _ __ ___  ___ ")
-        console.log("\\___ \\| ' /| |     | |_) | '__/ _ \\ / _` | '__/ _` | '_ ` _ \\/ __|")
-        console.log(" ___) | . \\| |___  |  __/| | | (_) | (_| | | | (_| | | | | | \\__ \\")
-        console.log("|____/|_|\\_\\_____| |_|   |_|  \\___/ \\__, |_|  \\__,_|_| |_| |_|___/")
-        console.log("                                    |___/                         ")
-
-        console.log("   ")
-
-        console.log(" _____     ____   ___ _____ ")
-        console.log("|__  /    | __ ) / _ \\_   _|")
-        console.log("  / /_____|  _ \\| | | || |  ")
-        console.log(" / /|_____| |_) | |_| || |  ")
-        console.log("/____|    |____/ \\___/ |_|  ")
-        console.log("   ")
-
-        console.log("Z-BOT : 🟢 - Connected")
-
+        console.log("Connected to Z-BOT")
         client.user.setPresence({ activities: [{ name: "Z-SPY Discord Server", type: ActivityType.Watching }] })
+
+        issueChannel = client.guilds.cache.get(ID.Servers.ZSPY).channels.cache.get(ID.Channels.Logs)
 
     })
 
@@ -324,6 +335,69 @@ async function startBot() {
         }
 
     })
+
+    expressApp.post('/issues', (req, res) => {
+
+        if(req.body.action == "opened") {
+
+            const githubIssueEmebed = createGithubIssueEmebed(req.body)
+            issueChannel.send({ embeds: [ githubIssueEmebed ] })
+
+        }
+
+        res.status(200).send('OK')
+
+    })
+
+    expressApp.post('/pullRequests', (req, res) => {
+
+        console.log(req.body) //Debug
+        const githubPREmbed = createGithubPREmbed(req.body)
+
+        if(req.body.action == "opened") {
+
+            githubPREmbed.setColor("Red")
+            issueChannel.send({ content: "A pull request was openned and must be reviewed", embeds: [githubPREmbed] })
+
+        }
+
+        if(req.body.action == "submitted") {
+
+            if(req.body.review.state == "approved") {
+
+                githubPREmbed.setFooter({ text: "Approved by " + req.body.sender.login + " | " + req.body.repository.full_name, iconURL: req.body.sender.avatar_url })
+                githubPREmbed.setColor("Green")
+                issueChannel.send({ content: "The changes has been approved and the pull request is ready to be merged", embeds: [githubPREmbed] })
+
+            }
+
+        }
+
+        if(req.body.action == "dismissed") {
+
+            githubPREmbed.setFooter({ text: "Committed by " + req.body.sender.login + " | " + req.body.repository.full_name, iconURL: req.body.sender.avatar_url })
+            githubPREmbed.setColor("Red")
+            issueChannel.send({ content: "Changes was committed and the pull request must be reviewed", embeds: [githubPREmbed] })
+
+        }
+
+        if(req.body.action == "closed") {
+
+            if(req.body.pull_request.merged) {
+
+                githubPREmbed.setFooter({ text: "Merged by " + req.body.sender.login + " | " + req.body.repository.full_name, iconURL: req.body.sender.avatar_url })
+                githubPREmbed.setColor("Purple")
+                issueChannel.send({ content: "The pull request has been merged", embeds: [githubPREmbed] })
+
+            }
+
+        }
+
+        res.status(200).send('OK')
+
+    })
+
+    expressApp.listen(3000, () => console.log("Express listening on port 3000"))
 
 }
 
