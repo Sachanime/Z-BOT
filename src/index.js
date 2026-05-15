@@ -5,8 +5,8 @@ const { registerFont } = require("canvas")
 const SmeeClient = require('smee-client')
 const express = require('express')
 
-//const ID = require("./ID.json")
-const ID = require("./ID-beta.json")
+const ID = require("./ID.json")
+//const ID = require("./ID-beta.json")
 const Token = require("./token.json")
 const package = require("../package.json")
 const packagelock = require("../package-lock.json")
@@ -17,8 +17,8 @@ const client = new Client({ intents: [3276799] })
 const adapter = new JSONFile(ID.DB.Main)
 const db = new Low(adapter, { users: [], mainDoc: [] })
 const voiceTimer = new Map()
-const smeeIssues = new SmeeClient({ source: "https://smee.io/ZRI2krsvVDOZyNZR", target: "http://localhost:3000/issues", logger: console })
-const smeePR = new SmeeClient({ source: "https://smee.io/NflpDhhAxl9J2s1A", target: "http://localhost:3000/pullRequests", logger: console })
+//const smeeIssues = new SmeeClient({ source: "https://smee.io/ZRI2krsvVDOZyNZR", target: "http://localhost:3000/issues", logger: console })
+//const smeePR = new SmeeClient({ source: "https://smee.io/NflpDhhAxl9J2s1A", target: "http://localhost:3000/pullRequests", logger: console })
 const expressApp = express()
 
 //Register fonts for Canvas
@@ -45,11 +45,11 @@ async function startBot() {
     console.log("/____|    |____/ \\___/ |_|  ")
     console.log("   ")
 
-    const githubIssuesEvent = smeeIssues.start()
-    const githubPREvent = smeePR.start()
+    //const githubIssuesEvent = smeeIssues.start()
+    //const githubPREvent = smeePR.start()
     expressApp.use(express.json())
     
-    client.login(Token.Beta)
+    client.login(Token.ZBOT)
     await db.read()
 
     let usersDb = db.data.users
@@ -338,11 +338,10 @@ async function startBot() {
 
     expressApp.post('/issues', (req, res) => {
 
+        const githubIssueEmebed = createGithubIssueEmebed(req.body)
+
         if(req.body.action == "opened") {
-
-            const githubIssueEmebed = createGithubIssueEmebed(req.body)
             issueChannel.send({ embeds: [ githubIssueEmebed ] })
-
         }
 
         res.status(200).send('OK')
@@ -351,7 +350,6 @@ async function startBot() {
 
     expressApp.post('/pullRequests', (req, res) => {
 
-        console.log(req.body) //Debug
         const githubPREmbed = createGithubPREmbed(req.body)
 
         if(req.body.action == "opened") {
