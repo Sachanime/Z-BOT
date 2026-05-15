@@ -71,6 +71,12 @@ function createConnectEmbed(package) {
 
 function createGithubIssueEmebed(data) {
 
+    const labelsArray = data.issue.labels.map(label => label.name)
+    const assignedsArray = data.issue.assignees.map(assigned => assigned.login)
+
+    const labelsString = labelsArray.join(", ")
+    const assignedsString = assignedsArray.join(", ")
+
     return new EmbedBuilder()
     .setTitle(data.issue.title)
     .setDescription(data.issue.body)
@@ -78,10 +84,22 @@ function createGithubIssueEmebed(data) {
     .setFooter({ text: "Openned by " + data.sender.login + " | " + data.repository.full_name, iconURL: data.sender.avatar_url })
     .setURL(data.issue.html_url)
     .setColor("Red")
+    .addFields([
+        { inline: true, name: "Labels", value: labelsString },
+        { inline: true, name: "Assigned to", value: assignedsString }
+    ])
 
 }
 
 function createGithubPREmbed(data) {
+
+    const labelsArray = data.pull_request.labels.map(label => label.name)
+    const assignedsArray = data.pull_request.assignees.map(assigned => assigned.login)
+    const reviewersArray = data.pull_request.requested_reviewers.map(reviewer => reviewer.login)
+
+    const labelsString = labelsArray.join(", ")
+    const assignedsString = assignedsArray.join(", ")
+    const reviewersString = reviewersArray.join(", ")
 
     return new EmbedBuilder()
     .setTitle(data.pull_request.title)
@@ -90,6 +108,11 @@ function createGithubPREmbed(data) {
     .setFooter({ text: "Openned by " + data.sender.login + " | " + data.repository.full_name, iconURL: data.sender.avatar_url })
     .setURL(data.pull_request.html_url)
     .setColor("Blue")
+    .addFields([
+        { inline: true, name: "Labels", value: labelsString },
+        { inline: true, name: "Assigned to", value: assignedsString },
+        { inline: true, name: "Requested reviewers", value: reviewersString }
+    ])
 
 }
 

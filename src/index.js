@@ -356,8 +356,8 @@ async function startBot() {
 
         if(req.body.action == "opened") {
 
-            issueChannel.send("A pull request was openned and must be reviewed")
-            issueChannel.send({ embeds: [githubPREmbed] })
+            githubPREmbed.setColor("Red")
+            issueChannel.send({ content: "A pull request was openned and must be reviewed", embeds: [githubPREmbed] })
 
         }
 
@@ -365,8 +365,9 @@ async function startBot() {
 
             if(req.body.review.state == "approved") {
 
-                issueChannel.send("The changes was approved and the pull request is ready to be merged")
-                issueChannel.send({ embeds: [githubPREmbed] })
+                githubPREmbed.setFooter({ text: "Approved by " + req.body.sender.login + " | " + req.body.repository.full_name, iconURL: req.body.sender.avatar_url })
+                githubPREmbed.setColor("Green")
+                issueChannel.send({ content: "The changes has been approved and the pull request is ready to be merged", embeds: [githubPREmbed] })
 
             }
 
@@ -374,8 +375,21 @@ async function startBot() {
 
         if(req.body.action == "dismissed") {
 
-            issueChannel.send("Changes was commited and the pull request must be reviewed")
-            issueChannel.send({ embeds: [githubPREmbed] })
+            githubPREmbed.setFooter({ text: "Committed by " + req.body.sender.login + " | " + req.body.repository.full_name, iconURL: req.body.sender.avatar_url })
+            githubPREmbed.setColor("Red")
+            issueChannel.send({ content: "Changes was committed and the pull request must be reviewed", embeds: [githubPREmbed] })
+
+        }
+
+        if(req.body.action == "closed") {
+
+            if(req.body.pull_request.merged) {
+
+                githubPREmbed.setFooter({ text: "Merged by " + req.body.sender.login + " | " + req.body.repository.full_name, iconURL: req.body.sender.avatar_url })
+                githubPREmbed.setColor("Purple")
+                issueChannel.send({ content: "The pull request has been merged", embeds: [githubPREmbed] })
+
+            }
 
         }
 
