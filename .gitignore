@@ -1,7 +1,8 @@
-token.json
-node_modules/
-*beta*
-*db*
-*key*
-databases/
 .vscode/
+node_modules/
+databases/
+*key*
+*db*
+*beta*
+token.json
+package-lock.json
