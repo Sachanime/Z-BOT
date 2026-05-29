@@ -48,7 +48,7 @@ async function createLevelCanvas(userData, xp, xpGoal, level) {
     ctx.roundRect(100, 55, fillXp, 10, 5)
     ctx.fillStyle = "#5DADBC"
     ctx.fill()
-    ctx.closePath
+    ctx.closePath()
 
     //Texte Level
     ctx.font = "bold 20px Discord"
