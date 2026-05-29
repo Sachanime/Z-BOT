@@ -29,19 +29,6 @@ function createInfosEmbed(client, package, packagelock) {
 
 }
 
-function createLevelEmbed(levelUser) {
-
-    return new EmbedBuilder()
-    .setTitle("Level")
-    .setDescription(
-        "Level : " + levelUser.level.toString() + "\n\n" +
-        "XP : " + levelUser.xp.toString() + "\n\n" +
-        "Prochain niveau à " + levelUser.xpgoal.toString() + "xp \n\n" +
-        "Prochaine récompense au niveau " + levelUser.levelgoal.toString()
-    )
-
-}
-
 function createChangelogEmbed(data) {
 
     return new EmbedBuilder()
@@ -57,15 +44,6 @@ function createChangelogErrorEmbed(err) {
     .setTitle("New release")
     .setDescription("Erreur lors de la récupération du changelog \nVous pouvez y accéder avec la commande `/changelog` \n\n```\n" + err + "\n```")
     .setColor("Red")
-
-}
-
-function createConnectEmbed(package) {
-
-    return new EmbedBuilder()
-    .setTitle("**Z-BOT** " + package.version)
-    .setDescription("Connecté ! \n\n`/infos` pour afficher la page d'information \n\n`/changelog` pour voir le changelog de la version actuel")
-    .setColor("Green")
 
 }
 
@@ -116,4 +94,4 @@ function createGithubPREmbed(data) {
 
 }
 
-module.exports = { levelUpEmbed, levelGoalEmbed, createInfosEmbed, createLevelEmbed, createChangelogEmbed, createChangelogErrorEmbed, createConnectEmbed, createGithubIssueEmebed, createGithubPREmbed }
+module.exports = { levelUpEmbed, levelGoalEmbed, createInfosEmbed, createChangelogEmbed, createChangelogErrorEmbed, createGithubIssueEmebed, createGithubPREmbed }

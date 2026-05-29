@@ -10,7 +10,7 @@ const ID = require("./ID.json")
 const Token = require("./token.json")
 const package = require("../package.json")
 const packagelock = require("../package-lock.json")
-const { levelUpEmbed, levelGoalEmbed, createInfosEmbed, createLevelEmbed, createChangelogEmbed, createChangelogErrorEmbed, createConnectEmbed, createGithubIssueEmebed, createGithubPREmbed } = require("./embeds.js")
+const { levelUpEmbed, levelGoalEmbed, createInfosEmbed, createChangelogEmbed, createChangelogErrorEmbed, createGithubIssueEmebed, createGithubPREmbed } = require("./embeds.js")
 const { createTestCanvas, createLevelCanvas } = require("./canvas.js")
 
 const client = new Client({ intents: [3276799] })
