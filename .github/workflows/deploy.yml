@@ -12,8 +12,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Deploy to VPS via SSH
-        uses: appleboy/ssh-action@v0.1.10
+      - name: SSH Deployment
+        uses: appleboy/ssh-action@0ff4204d59e8e51228ff73bce53f80d53301dee2 #v1.2.5
         with:
           host: ${{ secrets.VPS_HOST }}
           port: ${{ secrets.VPS_PORT }}
