@@ -2,7 +2,7 @@ const { Client, MessageType, ActivityType, AttachmentBuilder } = require("discor
 const { Low } = require("lowdb")
 const { JSONFile } = require("lowdb/node")
 const { registerFont } = require("canvas")
-const SmeeClient = require('smee-client')
+//const SmeeClient = require('smee-client')
 const express = require('express')
 
 const ID = require("./ID.json")
