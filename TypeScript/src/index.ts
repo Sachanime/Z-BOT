@@ -1,23 +1,13 @@
-import { ActivityType, Client } from "discord.js"
+import { ActivityType, Client } from 'discord.js'
 
-import Token from './token.json' with { type: 'json' }
+import Token from './token.json'
 
 const client = new Client({ intents:[3276799] })
 
+import clientReady from './events/clientReady'
+import messageCreate from './events/messageCreate'
+
+client.once(clientReady.name, () => clientReady.execute(client))
+client.on(messageCreate.name, (message) => messageCreate.execute(message))
+
 client.login(Token.Beta)
-
-client.once('clientReady', async () => {
-
-    await client.application.fetch()
-    console.log(`Connected to ${client.application.name}`)
-    client.user.setPresence({ activities: [{ name: "Self development", type: ActivityType.Watching }] })
-
-})
-
-client.on('messageCreate', (message) => {
-
-    if(message.content == "!ping") {
-        message.reply(`Pong!`)
-    }
-
-})
