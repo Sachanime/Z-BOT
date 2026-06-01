@@ -1,6 +1,5 @@
 import { ActivityType, Client } from "discord.js"
 
-import ID from './ID-beta.json' with { type: 'json' }
 import Token from './token.json' with { type: 'json' }
 
 const client = new Client({ intents:[3276799] })
