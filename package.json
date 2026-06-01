@@ -1,6 +1,7 @@
 {
   "name": "zbot",
   "version": "1.3.0",
+  "type": "module",
   "description": "Application for Z-SPY Discord Server",
   "main": "index.js",
   "scripts": {
