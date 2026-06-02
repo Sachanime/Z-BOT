@@ -1,5 +1,5 @@
 import { Client, Events, Interaction } from "discord.js"
-import { executeInfosSlashCommand, ping } from '../commands'
+import { executeInfosSlashCommand, ping, executeChangelogSlashCommand } from '../commands'
 
 export default {
 
@@ -15,6 +15,10 @@ export default {
 
         if(interaction.commandName == 'infos') {
             executeInfosSlashCommand(interaction, client)
+        }
+
+        if(interaction.commandName == 'changelog') {
+            executeChangelogSlashCommand(interaction)
         }
 
     }
