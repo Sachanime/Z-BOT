@@ -2,7 +2,7 @@ import { EmbedBuilder, Client } from 'discord.js'
 import packageJson from '../../../package.json'
 import packageLock from '../../../package-lock.json'
 
-export async function createInfosEmebed(client: Client) {
+export async function createInfosEmbed(client: Client) {
 
     const infoEmbed = new EmbedBuilder()
     .setTitle("Z-BOT")
