@@ -1,5 +1,4 @@
 import fs, { PathOrFileDescriptor } from 'fs'
-import path from 'path'
 
 export async function displayBanner(filename: PathOrFileDescriptor) {
 
