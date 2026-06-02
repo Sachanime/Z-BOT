@@ -1,6 +1,6 @@
 import { Client } from 'discord.js'
 
-import Token from './token.json'
+import Token from '../src/token.json'
 
 import clientReady from './events/clientReady'
 import messageCreate from './events/messageCreate'

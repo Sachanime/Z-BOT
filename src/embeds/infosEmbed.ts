@@ -1,6 +1,6 @@
 import { EmbedBuilder, Client } from 'discord.js'
-import packageJson from '../../../package.json'
-import packageLock from '../../../package-lock.json'
+import packageJson from '../../package.json'
+import packageLock from '../../package-lock.json'
 
 export async function createInfosEmbed(client: Client) {
 
