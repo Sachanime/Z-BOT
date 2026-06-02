@@ -1,6 +1,5 @@
 import { Client, Events, Interaction } from "discord.js"
-import { ping } from '../commands/ping'
-import { executeInfosSlashCommand } from '../commands/infos'
+import { executeInfosSlashCommand, ping } from '../commands'
 
 export default {
 
