@@ -18,6 +18,7 @@ import messageCreate from './events/messageCreate'
 import interactionCreate from './events/interactionCreate'
 import registerOnMessageCreate from './events/registerOnMessageCreate'
 import updateOnUserUpdate from './events/updateOnUserUpdate'
+import deleteOnMemberLeave from './events/deleteOnMemberLeave'
 console.log("Events loaded")
 
 const token = process.env.DISCORD_TOKEN
@@ -29,5 +30,6 @@ client.on(messageCreate.name, (message) => messageCreate.execute(message))
 client.on(interactionCreate.name, (interaction) => interactionCreate.execute(interaction, client))
 client.on(registerOnMessageCreate.name, (message) => registerOnMessageCreate.execute(message))
 client.on(updateOnUserUpdate.name, (oldUser, newUser) => updateOnUserUpdate.execute(newUser))
+client.on(deleteOnMemberLeave.name, (member) => deleteOnMemberLeave.execute(member))
 
 client.login(token)
