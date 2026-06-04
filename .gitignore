@@ -1,7 +1,8 @@
 .vscode/
 node_modules/
-databases/
+/src/generated/prisma
 *key*
 *db*
 *beta*
 token.json
+.env

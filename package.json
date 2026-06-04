@@ -10,6 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "@discordjs/rest": "^2.6.0",
+    "@prisma/adapter-mariadb": "^7.8.0",
+    "@prisma/client": "^7.8.0",
     "canvas": "^3.2.2",
     "discord.js": "^14.26.4",
     "express": "^5.2.1",
@@ -17,6 +19,7 @@
     "smee-client": "^5.0.0"
   },
   "devDependencies": {
+    "prisma": "^7.8.0",
     "tsx": "^4.22.4"
   },
   "allowScripts": {
