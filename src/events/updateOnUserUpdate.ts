@@ -1,5 +1,5 @@
 import { Events, User } from 'discord.js'
-import { updateUserWithId } from '../functions/database'
+import { findUserWithId, updateUserWithId } from '../functions/database'
 
 export default {
 
@@ -9,7 +9,8 @@ export default {
         
         if(user.bot) { return }
 
-        await updateUserWithId(user)
+        const findedUser = await findUserWithId(user.id)
+        await updateUserWithId(user, findedUser.xp)
 
     }
 
