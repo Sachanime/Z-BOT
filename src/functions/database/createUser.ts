@@ -7,7 +7,8 @@ export async function createUser(user: User) {
         data: {
             id: user.id,
             username: user.username,
-            xp: 0
+            xp: 0,
+            lvl: 0
         }
     })
 

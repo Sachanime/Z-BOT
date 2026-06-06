@@ -16,4 +16,5 @@ model Users {
   id String @id
   username String
   xp Int
+  lvl Int
 }

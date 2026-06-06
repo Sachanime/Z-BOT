@@ -10,7 +10,7 @@ export default {
         if(user.bot) { return }
 
         const findedUser = await findUserWithId(user.id)
-        await updateUserWithId(user, findedUser.xp)
+        await updateUserWithId(user, findedUser.xp, findedUser.lvl)
 
     }
 

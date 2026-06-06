@@ -1,7 +1,7 @@
 import { User } from 'discord.js'
 import { prisma } from '../../prisma'
 
-export async function updateUserWithId(user: User, xp: number) {
+export async function updateUserWithId(user: User, xp: number, lvl: number) {
 
     await prisma.users.update({
 
@@ -11,7 +11,8 @@ export async function updateUserWithId(user: User, xp: number) {
 
         data: {
             username: user.username,
-            xp: xp
+            xp: xp,
+            lvl: lvl
         }
 
     })
