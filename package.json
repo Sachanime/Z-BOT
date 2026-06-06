@@ -9,6 +9,7 @@
   "author": "Sachanime",
   "license": "ISC",
   "dependencies": {
+    "@discordjs/opus": "^0.10.0",
     "@discordjs/rest": "^2.6.0",
     "@discordjs/voice": "^0.19.2",
     "@prisma/adapter-mariadb": "^7.8.0",
