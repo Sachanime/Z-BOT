@@ -9,17 +9,19 @@ export default {
 
     async execute(oldState: VoiceState, newState: VoiceState, client: Client) {
 
-        const member = newState.member.user
-        if(member.bot) { return }
-
         const voiceChannelWhiteListString = process.env.DISCORD_VOICECHANNEL_WHITELIST
         const voiceChannelWhiteListArray = JSON.parse(voiceChannelWhiteListString) as Array<string>
 
         if(newState.channel != null && voiceChannelWhiteListArray.includes(newState.channel.id)) {
+            const member = newState.member.user
+            if(member.bot) { return }
             voiceTimer.set(member.id, Date.now())
         }
 
         if(newState.channel == null && voiceChannelWhiteListArray.includes(oldState.channel.id)) {
+
+            const member = oldState.member.user
+            if(member.bot) { return }
 
             const joinTime = voiceTimer.get(member.id)
             const timeSpentMs = Date.now() - joinTime
@@ -39,21 +41,21 @@ export default {
                 const levelUpEmbed = await createLevelUpEmbed(member, newLevel)
                 lvlChannel.send({ embeds: [levelUpEmbed] })
 
-                if(user.lvl < 5 && newLevel > 5) {
+                if(user.lvl < 5 && newLevel >= 5) {
                     roleReward = server.roles.cache.get(process.env.DISCORD_FRIEND_ROLEREWARD)
                     const levelGoalEmbed = await createLevelGoalEmbed(member, roleReward)
                     lvlChannel.send({ embeds: [levelGoalEmbed] })
                     newState.member.roles.add(roleReward)
                 }
 
-                if(user.lvl < 20 && newLevel > 20) {
+                if(user.lvl < 20 && newLevel >= 20) {
                     roleReward = server.roles.cache.get(process.env.DISCORD_BESTFRIEND_ROLEREWARD)
                     const levelGoalEmbed = await createLevelGoalEmbed(member, roleReward)
                     lvlChannel.send({ embeds: [levelGoalEmbed] })
                     newState.member.roles.add(roleReward)
                 }
 
-                if(user.lvl < 30 && newLevel > 30) {
+                if(user.lvl < 30 && newLevel >= 30) {
                     roleReward = server.roles.cache.get(process.env.DISCORD_SPY_ROLEREWARD)
                     const levelGoalEmbed = await createLevelGoalEmbed(member, roleReward)
                     lvlChannel.send({ embeds: [levelGoalEmbed] })

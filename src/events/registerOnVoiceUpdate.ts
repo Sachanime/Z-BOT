@@ -24,6 +24,8 @@ export default {
 
             else {
 
+                await createUser(member.user)
+
                 const soundPath = path.join(__dirname, '..', '..', 'sounds', 'voiceUserRecording.mp3')
                 const resource = createAudioResource(soundPath)
 
@@ -33,8 +35,6 @@ export default {
                 connection.subscribe(player)
                 setTimeout(() => player.play(resource), 500)
                 setTimeout(() => connection.destroy(), 3000)
-
-                await createUser(member.user)
 
             }
 
