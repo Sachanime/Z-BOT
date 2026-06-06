@@ -1,4 +1,4 @@
-import { Events, Message, MessageType, Client, TextChannel } from 'discord.js'
+import { Events, Message, MessageType, Client, TextChannel, Role } from 'discord.js'
 import { findUserWithId, updateUserWithId } from '../functions/database'
 import { createLevelUpEmbed, createLevelGoalEmbed } from '../embeds'
 
@@ -20,7 +20,7 @@ export default {
         const xpGoal = 5 * nextLevel * (nextLevel + 1)
         const lvlChannel = client.channels.cache.get(process.env.DISCORD_LEVEL_CHANNEL) as TextChannel
         const server = client.guilds.cache.get(process.env.DISCORD_SERVER)
-        let roleReward
+        let roleReward: Role
 
         await updateUserWithId(message.author, userXp, user.lvl)
 
