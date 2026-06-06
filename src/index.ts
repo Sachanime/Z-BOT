@@ -1,8 +1,6 @@
 import { Client } from 'discord.js'
 import path from 'path'
 import { displayBanner } from './functions'
-import { config } from "dotenv"
-import { resolve } from "path"
 
 const bannersPath = path.join(__dirname, '..', 'assets', 'banners')
 const editorBannerPath = path.join(bannersPath, 'editorBanner.txt')
@@ -11,15 +9,13 @@ const appBannerPath = path.join(bannersPath, 'appBanner.txt')
 displayBanner(editorBannerPath)
 displayBanner(appBannerPath)
 
-config({ path: resolve(__dirname, '../.env') })
-
 import clientReady from './events/clientReady'
 import messageCreate from './events/messageCreate'
 import interactionCreate from './events/interactionCreate'
 import registerOnMessageCreate from './events/registerOnMessageCreate'
 import updateOnUserUpdate from './events/updateOnUserUpdate'
 import deleteOnMemberLeave from './events/deleteOnMemberLeave'
-console.log("Events loaded")
+import levelingOnMessageCreate from './events/levelingOnMessageCreate'
 
 const token = process.env.DISCORD_TOKEN
 
@@ -31,5 +27,7 @@ client.on(interactionCreate.name, (interaction) => interactionCreate.execute(int
 client.on(registerOnMessageCreate.name, (message) => registerOnMessageCreate.execute(message))
 client.on(updateOnUserUpdate.name, (oldUser, newUser) => updateOnUserUpdate.execute(newUser))
 client.on(deleteOnMemberLeave.name, (member) => deleteOnMemberLeave.execute(member))
+client.on(levelingOnMessageCreate.name, (message) => levelingOnMessageCreate.execute(message, client))
 
+console.log("Events loaded")
 client.login(token)
