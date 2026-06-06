@@ -16,10 +16,8 @@ export default {
         if(user) { return }
 
         else {
-
             await createUser(message.author)
             message.react(ID.Emotes.Registered)
-
         }
 
     }
