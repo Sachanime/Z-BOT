@@ -1,3 +1,4 @@
 import { displayBanner } from "./displayBanner"
+import { setEnv } from './setEnv'
 
-export { displayBanner }
+export { displayBanner, setEnv }
