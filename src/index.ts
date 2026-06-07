@@ -1,7 +1,7 @@
 import { Client } from 'discord.js'
 import path from 'path'
 import { displayBanner } from './functions'
-import { clientReady, testEvent, deleteOnMemberLeave, interactionCreate, levelingOnMessageCreate, levelingOnVoiceUpdate, registerOnMessageCreate, registerOnVoiceUpdate, updateOnUserUpdate } from './events'
+import { clientReady, secretEvent, deleteOnMemberLeave, interactionCreate, levelingOnMessageCreate, levelingOnVoiceUpdate, registerOnMessageCreate, registerOnVoiceUpdate, updateOnUserUpdate } from './events'
 
 const bannersPath = path.join(__dirname, '..', 'assets', 'banners')
 const editorBannerPath = path.join(bannersPath, 'editorBanner.txt')
@@ -14,7 +14,7 @@ displayBanner(editorBannerPath)
 displayBanner(appBannerPath)
 
 client.once(clientReady.name, () => clientReady.execute(client))
-client.on(testEvent.name, (message) => testEvent.execute(message))
+client.on(secretEvent.name, (message) => secretEvent.execute(message))
 client.on(interactionCreate.name, (interaction) => interactionCreate.execute(interaction, client))
 client.on(registerOnMessageCreate.name, (message) => registerOnMessageCreate.execute(message, client))
 client.on(updateOnUserUpdate.name, (oldUser, newUser) => updateOnUserUpdate.execute(newUser, client))

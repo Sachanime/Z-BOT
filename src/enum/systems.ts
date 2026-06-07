@@ -5,5 +5,6 @@ export enum Systems {
     voiceLeveling = "Voice Leveling",
     messageRegistration = "Member Register",
     voiceRegistration = "Member Voice Register",
-    memberUpdate = "Member Updater"
+    memberUpdate = "Member Updater",
+    secretEvent = "Easter Egg"
 }
