@@ -14,7 +14,7 @@ displayBanner(editorBannerPath)
 displayBanner(appBannerPath)
 
 client.once(clientReady.name, () => clientReady.execute(client))
-client.on(secretEvent.name, (message) => secretEvent.execute(message))
+client.on(secretEvent.name, (message) => secretEvent.execute(message, client))
 client.on(interactionCreate.name, (interaction) => interactionCreate.execute(interaction, client))
 client.on(registerOnMessageCreate.name, (message) => registerOnMessageCreate.execute(message, client))
 client.on(updateOnUserUpdate.name, (oldUser, newUser) => updateOnUserUpdate.execute(newUser, client))
