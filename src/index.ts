@@ -1,27 +1,17 @@
 import { Client } from 'discord.js'
 import path from 'path'
 import { displayBanner } from './functions'
+import { clientReady, testEvent, deleteOnMemberLeave, interactionCreate, levelingOnMessageCreate, levelingOnVoiceUpdate, registerOnMessageCreate, registerOnVoiceUpdate, updateOnUserUpdate } from './events'
 
 const bannersPath = path.join(__dirname, '..', 'assets', 'banners')
 const editorBannerPath = path.join(bannersPath, 'editorBanner.txt')
 const appBannerPath = path.join(bannersPath, 'appBanner.txt')
-
-displayBanner(editorBannerPath)
-displayBanner(appBannerPath)
-
-import clientReady from './events/clientReady'
-import messageCreate from './events/testEvent'
-import interactionCreate from './events/interactionCreate'
-import registerOnMessageCreate from './events/registerOnMessageCreate'
-import updateOnUserUpdate from './events/updateOnUserUpdate'
-import deleteOnMemberLeave from './events/deleteOnMemberLeave'
-import levelingOnMessageCreate from './events/levelingOnMessageCreate'
-import registerOnVoiceUpdate from './events/registerOnVoiceUpdate'
-import levelingOnVoiceUpdate from './events/levelingOnVoiceUpdate'
-
 const token = process.env.DISCORD_TOKEN
 const client = new Client({ intents:[3276799] })
 export const voiceTimer = new Map<string, number>()
+
+displayBanner(editorBannerPath)
+displayBanner(appBannerPath)
 
 client.once(clientReady.name, () => clientReady.execute(client))
 client.on(messageCreate.name, (message) => messageCreate.execute(message))
