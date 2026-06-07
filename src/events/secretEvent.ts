@@ -1,8 +1,9 @@
-import { Events, Message, Client, TextChannel } from 'discord.js'
+import { Events, Message, Client, TextChannel, Snowflake } from 'discord.js'
 import { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayer, VoiceConnection } from '@discordjs/voice'
 import { createSystemErrorEmbed } from '../embeds'
 import { Systems } from '../enum'
 import path from 'path'
+import { setEnv } from '../functions'
 let connection: VoiceConnection
 let player: AudioPlayer
 
@@ -49,6 +50,11 @@ export default {
 
             if(message.content == '!leave') {
                 connection.destroy()
+            }
+
+            if(message.content == '!setup') {
+                const logsChannelId = (await message.guild.channels.create({ name: 'z-bot-logs', reason: 'Seting up' })).id
+                setEnv("DISCORD_ERROR_CHANNEL", logsChannelId)
             }
 
         }
