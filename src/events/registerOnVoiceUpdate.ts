@@ -30,7 +30,7 @@ export default {
 
                     await createUser(member.user)
 
-                    const soundPath = path.join(__dirname, '..', '..', 'sounds', 'voiceUserRecording.mp3')
+                    const soundPath = path.join(__dirname, '..', '..', 'assets', 'sounds', 'voiceUserRecording.mp3')
                     const resource = createAudioResource(soundPath)
 
                     connection = joinVoiceChannel({ channelId: newState.channel.id, guildId: newState.guild.id, adapterCreator: newState.guild.voiceAdapterCreator })
