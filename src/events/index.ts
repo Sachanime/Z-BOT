@@ -7,5 +7,7 @@ import levelingOnVoiceUpdate from './levelingOnVoiceUpdate'
 import registerOnMessageCreate from './registerOnMessageCreate'
 import registerOnVoiceUpdate from './registerOnVoiceUpdate'
 import updateOnUserUpdate from './updateOnUserUpdate'
+import expressIssues from './expressIssues'
+import expressPR from './expressPR'
 
-export { clientReady, secretEvent, deleteOnMemberLeave, interactionCreate, levelingOnMessageCreate, levelingOnVoiceUpdate, registerOnMessageCreate, registerOnVoiceUpdate, updateOnUserUpdate }
+export { clientReady, secretEvent, deleteOnMemberLeave, interactionCreate, levelingOnMessageCreate, levelingOnVoiceUpdate, registerOnMessageCreate, registerOnVoiceUpdate, updateOnUserUpdate, expressIssues, expressPR }
