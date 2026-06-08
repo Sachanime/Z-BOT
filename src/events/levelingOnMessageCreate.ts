@@ -21,7 +21,7 @@ export default {
             const userXp = user.xp + 1
             const nextLevel = user.lvl + 1
             const xpGoal = 5 * nextLevel * (nextLevel + 1)
-            const lvlChannel = client.channels.cache.get(process.env.DISCORD_LEVEL_CHANNEL) as TextChannel
+            const lvlChannel = client.channels.cache.get(process.env.DISCORD_CHANNEL_LEVEL) as TextChannel
             const server = client.guilds.cache.get(process.env.DISCORD_SERVER)
             let roleReward: Role
 
@@ -34,21 +34,21 @@ export default {
                 lvlChannel.send({ embeds: [levelUpEmbed] })
 
                 if(nextLevel == 5) {
-                    roleReward = server.roles.cache.get(process.env.DISCORD_FRIEND_ROLEREWARD)
+                    roleReward = server.roles.cache.get(process.env.DISCORD_ROLEREWARD_TIER1)
                     const levelGoalEmbed = await createLevelGoalEmbed(message.author, roleReward)
                     lvlChannel.send({ embeds: [levelGoalEmbed] })
                     message.member.roles.add(roleReward)
                 }
 
                 if(nextLevel == 20) {
-                    roleReward = server.roles.cache.get(process.env.DISCORD_BESTFRIEND_ROLEREWARD)
+                    roleReward = server.roles.cache.get(process.env.DISCORD_ROLEREWARD_TIER2)
                     const levelGoalEmbed = await createLevelGoalEmbed(message.author, roleReward)
                     lvlChannel.send({ embeds: [levelGoalEmbed] })
                     message.member.roles.add(roleReward)
                 }
 
                 if(nextLevel == 30) {
-                    roleReward = server.roles.cache.get(process.env.DISCORD_SPY_ROLEREWARD)
+                    roleReward = server.roles.cache.get(process.env.DISCORD_ROLEREWARD_TIER3)
                     const levelGoalEmbed = await createLevelGoalEmbed(message.author, roleReward)
                     lvlChannel.send({ embeds: [levelGoalEmbed] })
                     message.member.roles.add(roleReward)
@@ -59,7 +59,7 @@ export default {
         }
 
         catch(err) {
-            const errorChannel = client.channels.cache.get(process.env.DISCORD_ERROR_CHANNEL) as TextChannel
+            const errorChannel = client.channels.cache.get(process.env.DISCORD_CHANNEL_LOGS) as TextChannel
             const systemErrorEmbed = await createSystemErrorEmbed(Systems.messageLeveling, err)
             errorChannel.send({ embeds: [systemErrorEmbed] })
             console.log("System error reported")

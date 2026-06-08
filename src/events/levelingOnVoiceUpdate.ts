@@ -34,7 +34,7 @@ export default {
                 const totalXp = user.xp + xpGained
                 const newLevel = Math.floor((Math.sqrt(20 * totalXp + 25) - 5) / 10 )
                 const server = client.guilds.cache.get(process.env.DISCORD_SERVER)
-                const lvlChannel = client.channels.cache.get(process.env.DISCORD_LEVEL_CHANNEL) as TextChannel
+                const lvlChannel = client.channels.cache.get(process.env.DISCORD_CHANNEL_LEVEL) as TextChannel
                 let roleReward: Role
 
                 await updateUserWithId(member, totalXp, newLevel)
@@ -45,21 +45,21 @@ export default {
                     lvlChannel.send({ embeds: [levelUpEmbed] })
 
                     if(user.lvl < 5 && newLevel >= 5) {
-                        roleReward = server.roles.cache.get(process.env.DISCORD_FRIEND_ROLEREWARD)
+                        roleReward = server.roles.cache.get(process.env.DISCORD_ROLEREWARD_TIER1)
                         const levelGoalEmbed = await createLevelGoalEmbed(member, roleReward)
                         lvlChannel.send({ embeds: [levelGoalEmbed] })
                         newState.member.roles.add(roleReward)
                     }
 
                     if(user.lvl < 20 && newLevel >= 20) {
-                        roleReward = server.roles.cache.get(process.env.DISCORD_BESTFRIEND_ROLEREWARD)
+                        roleReward = server.roles.cache.get(process.env.DISCORD_ROLEREWARD_TIER2)
                         const levelGoalEmbed = await createLevelGoalEmbed(member, roleReward)
                         lvlChannel.send({ embeds: [levelGoalEmbed] })
                         newState.member.roles.add(roleReward)
                     }
 
                     if(user.lvl < 30 && newLevel >= 30) {
-                        roleReward = server.roles.cache.get(process.env.DISCORD_SPY_ROLEREWARD)
+                        roleReward = server.roles.cache.get(process.env.DISCORD_ROLEREWARD_TIER3)
                         const levelGoalEmbed = await createLevelGoalEmbed(member, roleReward)
                         lvlChannel.send({ embeds: [levelGoalEmbed] })
                         newState.member.roles.add(roleReward)
@@ -72,7 +72,7 @@ export default {
         }
 
         catch(err) {
-            const errorChannel = client.channels.cache.get(process.env.DISCORD_ERROR_CHANNEL) as TextChannel
+            const errorChannel = client.channels.cache.get(process.env.DISCORD_CHANNEL_LOGS) as TextChannel
             const systemErrorEmbed = await createSystemErrorEmbed(Systems.voiceLeveling, err)
             errorChannel.send({ embeds: [systemErrorEmbed] })
             console.log("System error reported")

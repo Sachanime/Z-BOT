@@ -15,7 +15,7 @@ export default {
         }
 
         catch(err) {
-            const errorChannel = client.channels.cache.get(process.env.DISCORD_ERROR_CHANNEL) as TextChannel
+            const errorChannel = client.channels.cache.get(process.env.DISCORD_CHANNEL_LOGS) as TextChannel
             const systemErrorEmbed = await createSystemErrorEmbed(Systems.memberLeave, err)
             errorChannel.send({ embeds: [systemErrorEmbed] })
             console.log("System error reported")
