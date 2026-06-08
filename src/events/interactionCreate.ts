@@ -1,5 +1,5 @@
 import { Client, Events, Interaction, TextChannel } from "discord.js"
-import { executeInfosSlashCommand, ping, executeChangelogSlashCommand } from '../commands'
+import { executeInfosSlashCommand, ping, executeChangelogSlashCommand, executeLevelSlashCommand } from '../commands'
 import { createSystemErrorEmbed } from '../embeds'
 import { Systems } from '../enum'
 
@@ -23,6 +23,10 @@ export default {
 
             if(interaction.commandName == 'changelog') {
                 executeChangelogSlashCommand(interaction)
+            }
+
+            if(interaction.commandName == 'level') {
+                executeLevelSlashCommand(interaction)
             }
 
         }
