@@ -14,8 +14,11 @@ export async function executeLevelSlashCommand(interaction: ChatInputCommandInte
         const level = userData.lvl
         const nextLevel = level + 1
         const xpGoal = 5 * nextLevel * (nextLevel + 1)
+        const xpMin = 5 * level * (level + 1)
+        const relativeXpMin = xp - xpMin
+        const relativeXpMax = xpGoal - xpMin
 
-        const buffer = await createLevelCanvas(userTarget, xp, xpGoal, level)
+        const buffer = await createLevelCanvas(userTarget, xp, relativeXpMin, relativeXpMax, xpGoal, level)
         const attachment = new AttachmentBuilder(buffer, { name: 'level.png' })
 
         await interaction.editReply({ files: [attachment] })
@@ -25,12 +28,15 @@ export async function executeLevelSlashCommand(interaction: ChatInputCommandInte
     else{
 
         const userData = await findUserWithId(interaction.user.id)
-        const xp = userData.xp
+        let xp = userData.xp
         const level = userData.lvl
         const nextLevel = level + 1
         const xpGoal = 5 * nextLevel * (nextLevel + 1)
+        const xpMin = 5 * level * (level + 1)
+        const relativeXpMin = xp - xpMin
+        const relativeXpMax = xpGoal - xpMin
 
-        const buffer = await createLevelCanvas(interaction.user, xp, xpGoal, level)
+        const buffer = await createLevelCanvas(interaction.user, xp, relativeXpMin, relativeXpMax, xpGoal, level)
         const attachment = new AttachmentBuilder(buffer, { name: 'level.png' })
 
         await interaction.editReply({ files: [attachment] })

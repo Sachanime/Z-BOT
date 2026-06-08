@@ -1,13 +1,13 @@
 import { createCanvas, loadImage } from 'canvas'
 import { User } from 'discord.js'
 
-export async function createLevelCanvas(user: User, xp: number, xpGoal: number, level: number) {
+export async function createLevelCanvas(user: User, xp: number, relativeXpMin: number, relativeXpMax: number, xpGoal: number, level: number) {
 
     const canvas = createCanvas(400, 100)
     const ctx = canvas.getContext('2d')
     const avatarUrl = user.displayAvatarURL({ extension: 'png', size: 64 })
     const avatarCanvasImage = await loadImage(avatarUrl)
-    const fillXp = xp * 275 / xpGoal
+    const fillXp = relativeXpMin * 275 / relativeXpMax
 
     ctx.fillStyle = '#2C3E50'
     ctx.fillRect(0, 0, 400, 100)
