@@ -5,5 +5,6 @@ import { createLevelUpEmbed } from './levelUpEmbed'
 import { createLevelGoalEmbed } from './levelGoalEmbed'
 import { createSystemErrorEmbed } from './systemErrorEmbed'
 import { createGithubIssueEmbed } from './githubIssueEmbed'
+import { createGithubPREmbed } from './githubPREmbed'
 
-export { createInfosEmbed, createChangelogEmbed, createChangelogErrorEmbed, createLevelUpEmbed, createLevelGoalEmbed, createSystemErrorEmbed, createGithubIssueEmbed }
+export { createInfosEmbed, createChangelogEmbed, createChangelogErrorEmbed, createLevelUpEmbed, createLevelGoalEmbed, createSystemErrorEmbed, createGithubIssueEmbed, createGithubPREmbed }
