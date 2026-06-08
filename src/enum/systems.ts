@@ -6,5 +6,6 @@ export enum Systems {
     messageRegistration = "Member Register",
     voiceRegistration = "Member Voice Register",
     memberUpdate = "Member Updater",
-    secretEvent = "Easter Egg"
+    secretEvent = "Easter Egg",
+    webhook = "GitHub Webhook"
 }
