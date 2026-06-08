@@ -23,6 +23,7 @@
     "smee-client": "^5.0.0"
   },
   "devDependencies": {
+    "@types/express": "^5.0.6",
     "prisma": "^7.8.0",
     "tsx": "^4.22.4"
   },
