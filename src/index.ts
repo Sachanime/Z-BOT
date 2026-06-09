@@ -14,7 +14,7 @@ const client = new Client({ intents:[3276799] })
 export const voiceTimer = new Map<string, number>()
 const smeeIssues = new SmeeClient({ source: 'https://smee.io/jYkEOAYZzPeGW5', target: 'http://localhost:3000/issues', logger: console })
 const expressApp = express()
-const githubIssueEvent = smeeIssues.start()
+smeeIssues.start()
 expressApp.use(express.json())
 
 displayBanner(editorBannerPath)
