@@ -1,5 +1,5 @@
 import { Client, Events, Interaction, TextChannel } from "discord.js"
-import { executeInfosSlashCommand, executeChangelogSlashCommand, executeLevelSlashCommand } from '../commands'
+import { executeInfosSlashCommand, executeChangelogSlashCommand, executeLevelSlashCommand, executeSetupSlashCommand } from '../commands'
 import { createSystemErrorEmbed } from '../embeds'
 import { Systems } from '../enum'
 
@@ -23,6 +23,10 @@ export default {
 
             if(interaction.commandName == 'level') {
                 executeLevelSlashCommand(interaction)
+            }
+
+            if(interaction.commandName == 'setup') {
+                executeSetupSlashCommand(interaction, client)
             }
 
         }
