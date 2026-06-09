@@ -1,4 +1,4 @@
-import { channelLink, SlashCommandBuilder } from 'discord.js'
+import { SlashCommandBuilder } from 'discord.js'
 
 const setupCommandBuilder = new SlashCommandBuilder()
 .setName('setup')
