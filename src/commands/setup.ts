@@ -3,13 +3,13 @@ import { setEnv } from '../functions'
 
 export async function executeSetupSlashCommand(interaction: ChatInputCommandInteraction, client: Client) {
 
-    const logsChannel = interaction.options.getChannel('logsChannel') as TextChannel
-    const levelChannel = interaction.options.getChannel('levelChannel') as TextChannel
-    const moderatorCategory = interaction.options.getChannel('moderatorCategory') as CategoryChannel
-    const generalCategory = interaction.options.getChannel('generalCategory') as CategoryChannel
-    const roleRewardTier1 = interaction.options.getRole('roleRewardTier1') as Role
-    const roleRewardTier2 = interaction.options.getRole('roleRewardTier2') as Role
-    const roleRewardTier3 = interaction.options.getRole('roleRewardTier3') as Role
+    const logsChannel = interaction.options.getChannel('logs_channel') as TextChannel
+    const levelChannel = interaction.options.getChannel('level_channel') as TextChannel
+    const moderatorCategory = interaction.options.getChannel('moderator_category') as CategoryChannel
+    const generalCategory = interaction.options.getChannel('general_category') as CategoryChannel
+    const roleRewardTier1 = interaction.options.getRole('role_reward_tier1') as Role
+    const roleRewardTier2 = interaction.options.getRole('role_reward_tier2') as Role
+    const roleRewardTier3 = interaction.options.getRole('role_reward_tier3') as Role
     
     const logsChannelEnvKey = 'DISCORD_CHANNEL_LOGS'
     const levelChannelEnvKey = 'DISCORD_CHANNEL_LEVEL'
