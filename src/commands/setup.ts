@@ -3,7 +3,7 @@ import { setEnv } from '../functions'
 
 export async function executeSetupSlashCommand(interaction: ChatInputCommandInteraction, client: Client) {
 
-    interaction.deferReply()
+    await interaction.deferReply()
 
     const logsChannel = interaction.options.getChannel('logs_channel') as TextChannel
     const levelChannel = interaction.options.getChannel('level_channel') as TextChannel
