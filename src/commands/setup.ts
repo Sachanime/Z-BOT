@@ -3,6 +3,8 @@ import { setEnv } from '../functions'
 
 export async function executeSetupSlashCommand(interaction: ChatInputCommandInteraction, client: Client) {
 
+    interaction.deferReply()
+
     const logsChannel = interaction.options.getChannel('logs_channel') as TextChannel
     const levelChannel = interaction.options.getChannel('level_channel') as TextChannel
     const moderatorCategory = interaction.options.getChannel('moderator_category') as CategoryChannel
@@ -88,5 +90,7 @@ export async function executeSetupSlashCommand(interaction: ChatInputCommandInte
         const newRoleRewardTier3 = await interaction.guild.roles.create({ name: 'Tier 3', reason: 'Setting up' })
         setEnv(roleRewardTier3EnvKey, newRoleRewardTier3.id)
     }
+
+    interaction.editReply("Application configured")
 
 }

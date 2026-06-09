@@ -1,5 +1,5 @@
 import { Client, Events, Interaction, TextChannel } from "discord.js"
-import { executeInfosSlashCommand, ping, executeChangelogSlashCommand, executeLevelSlashCommand } from '../commands'
+import { executeInfosSlashCommand, executeChangelogSlashCommand, executeLevelSlashCommand } from '../commands'
 import { createSystemErrorEmbed } from '../embeds'
 import { Systems } from '../enum'
 
@@ -12,10 +12,6 @@ export default {
         try {
 
             if(!interaction.isChatInputCommand()) { return }
-
-            if(interaction.commandName == 'test') {
-                ping(interaction)
-            }
 
             if(interaction.commandName == 'infos') {
                 executeInfosSlashCommand(interaction, client)
