@@ -9,10 +9,12 @@ const adminLevelCommandBuilder = new SlashCommandBuilder()
     .addUserOption(option => option
         .setName('member')
         .setDescription("Membre")
+        .setRequired(true)
     )
     .addNumberOption(option => option
         .setName('amount')
         .setDescription("Montant")
+        .setRequired(true)
     )
 )
 .addSubcommand(subCommand => subCommand
@@ -21,10 +23,12 @@ const adminLevelCommandBuilder = new SlashCommandBuilder()
     .addUserOption(option => option
         .setName('member')
         .setDescription("Membre")
+        .setRequired(true)
     )
     .addNumberOption(option => option
         .setName('amount')
         .setDescription("Montant")
+        .setRequired(true)
     )
 )
 .addSubcommand(subCommand => subCommand
@@ -33,10 +37,12 @@ const adminLevelCommandBuilder = new SlashCommandBuilder()
     .addUserOption(option => option
         .setName('member')
         .setDescription('Membre')
+        .setRequired(true)
     )
     .addNumberOption(option => option
         .setName('amount')
         .setDescription("Montant")
+        .setRequired(true)
     )
 )
 .addSubcommand(subCommand => subCommand
@@ -45,10 +51,12 @@ const adminLevelCommandBuilder = new SlashCommandBuilder()
     .addUserOption(option => option
         .setName('member')
         .setDescription("Membre")
+        .setRequired(true)
     )
     .addNumberOption(option => option
         .setName('amount')
         .setDescription('Montant')
+        .setRequired(true)
     )
 )
 .addSubcommand(subCommand => subCommand
@@ -57,10 +65,12 @@ const adminLevelCommandBuilder = new SlashCommandBuilder()
     .addUserOption(option => option
         .setName('member')
         .setDescription("Membre")
+        .setRequired(true)
     )
     .addNumberOption(option => option
         .setName('amount')
         .setDescription("Montant")
+        .setRequired(true)
     )
 )
 .addSubcommand(subCommand => subCommand
@@ -69,10 +79,12 @@ const adminLevelCommandBuilder = new SlashCommandBuilder()
     .addUserOption(option => option
         .setName('member')
         .setDescription("Membre")
+        .setRequired(true)
     )
     .addNumberOption(option => option
         .setName('amount')
         .setDescription("Montant")
+        .setRequired(true)
     )
 )
 
