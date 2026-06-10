@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from 'discord.js'
+import { SlashCommandBuilder, PermissionFlagsBits } from 'discord.js'
 
 const adminLevelCommandBuilder = new SlashCommandBuilder()
 .setName('admin_level')
@@ -87,5 +87,6 @@ const adminLevelCommandBuilder = new SlashCommandBuilder()
         .setRequired(true)
     )
 )
+.setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
 
 export { adminLevelCommandBuilder }
