@@ -1,5 +1,5 @@
 import { ChatInputCommandInteraction, GuildMember } from 'discord.js'
-import { findUserWithId, updateUserWithId } from '../../functions/database'
+import { updateUserWithId } from '../../functions/database'
 import { getXpWithLevel } from '../../functions'
 import { createLevelAdminEmbed } from '../../embeds'
 
