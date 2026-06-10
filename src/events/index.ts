@@ -10,4 +10,16 @@ import updateOnUserUpdate from './updateOnUserUpdate'
 import expressIssues from './expressIssues'
 import expressPR from './expressPR'
 
-export { clientReady, secretEvent, deleteOnMemberLeave, interactionCreate, levelingOnMessageCreate, levelingOnVoiceUpdate, registerOnMessageCreate, registerOnVoiceUpdate, updateOnUserUpdate, expressIssues, expressPR }
+export {
+    clientReady,
+    secretEvent,
+    deleteOnMemberLeave,
+    interactionCreate,
+    levelingOnMessageCreate,
+    levelingOnVoiceUpdate,
+    registerOnMessageCreate,
+    registerOnVoiceUpdate,
+    updateOnUserUpdate,
+    expressIssues,
+    expressPR 
+}

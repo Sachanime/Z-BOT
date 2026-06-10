@@ -2,5 +2,12 @@ import { executeInfosSlashCommand } from './infos'
 import { executeChangelogSlashCommand } from './changelog'
 import { executeLevelSlashCommand } from './level'
 import { executeSetupSlashCommand } from './setup'
+import { executeAdminLevelSlashCommand } from './adminLevel'
 
-export { executeInfosSlashCommand, executeChangelogSlashCommand, executeLevelSlashCommand, executeSetupSlashCommand }
+export {
+    executeInfosSlashCommand,
+    executeChangelogSlashCommand,
+    executeLevelSlashCommand,
+    executeSetupSlashCommand,
+    executeAdminLevelSlashCommand
+}
