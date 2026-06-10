@@ -1,7 +1,7 @@
 import { ChatInputCommandInteraction, GuildMember } from 'discord.js'
-import { findUserWithId, updateUserWithId } from '../functions/database'
-import { getLevelWithXp } from '../functions'
-import { createLevelAdminEmbed } from '../embeds'
+import { findUserWithId, updateUserWithId } from '../../functions/database'
+import { getLevelWithXp } from '../../functions'
+import { createLevelAdminEmbed } from '../../embeds'
 
 export async function executeLevelGiveXpSlashCommand(interaction: ChatInputCommandInteraction) {
 
