@@ -16,7 +16,8 @@ export async function executeVoiceXpSlashCommand(interaction: ChatInputCommandIn
         userTarget = interaction.user
     }
 
-    const timeSpent = voiceTimer.get(userTarget.id)
+    const joinTime = voiceTimer.get(userTarget.id)
+    const timeSpent = Date.now() - joinTime
     const buffer = await createVoiceXpCanvas(userTarget, timeSpent)
     const attachment = new AttachmentBuilder(buffer)
 
