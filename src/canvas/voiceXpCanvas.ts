@@ -36,7 +36,7 @@ export async function createVoiceXpCanvas(user: User, timeSpentMs: number) {
     ctx.textBaseline = 'middle'
     ctx.fillText(`${timeSpentMin} min`, 100, 75)
 
-    ctx.font = 'bold 20px Discord'
+    ctx.font = 'bold 10px Discord'
     ctx.fillStyle = '#FFFFFF'
     ctx.textAlign = 'right'
     ctx.textBaseline = 'middle'
