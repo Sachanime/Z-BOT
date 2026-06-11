@@ -27,6 +27,7 @@ export default {
                 if(member.bot) { return }
 
                 const joinTime = voiceTimer.get(member.id)
+                voiceTimer.delete(member.id)
                 const timeSpentMs = Date.now() - joinTime
                 const timeSpent = Math.floor(timeSpentMs / 3600000)
                 const xpGained = timeSpent * 2
