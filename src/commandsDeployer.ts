@@ -8,7 +8,7 @@ import {
     levelCommandBuilder,
     setupCommandBuilder,
     adminLevelCommandBuilder,
-    voiceXpCommandBuilder
+    voiceCommandBuilder
 } from './commands/builders'
 
 config({ path: resolve(__dirname, '../.env') })
@@ -21,7 +21,7 @@ const commands = [
     levelCommandBuilder,
     setupCommandBuilder,
     adminLevelCommandBuilder,
-    voiceXpCommandBuilder
+    voiceCommandBuilder
 ].map(command => command.toJSON())
 const rest = new REST({ version: '10' }).setToken(token)
 

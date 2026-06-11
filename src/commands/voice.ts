@@ -1,8 +1,8 @@
 import { ChatInputCommandInteraction, User, AttachmentBuilder } from 'discord.js'
-import { createVoiceXpCanvas } from '../canvas'
+import { createVoiceCanvas } from '../canvas'
 import { voiceTimer } from '..'
 
-export async function executeVoiceXpSlashCommand(interaction: ChatInputCommandInteraction) {
+export async function executeVoiceSlashCommand(interaction: ChatInputCommandInteraction) {
 
     await interaction.deferReply()
     
@@ -18,7 +18,7 @@ export async function executeVoiceXpSlashCommand(interaction: ChatInputCommandIn
 
     const joinTime = voiceTimer.get(userTarget.id)
     const timeSpent = Date.now() - joinTime
-    const buffer = await createVoiceXpCanvas(userTarget, timeSpent)
+    const buffer = await createVoiceCanvas(userTarget, timeSpent)
     const attachment = new AttachmentBuilder(buffer)
 
     await interaction.editReply({ files: [attachment] })

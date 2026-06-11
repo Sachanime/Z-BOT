@@ -1,7 +1,7 @@
 import { createCanvas, loadImage } from 'canvas'
 import { User } from 'discord.js'
 
-export async function createVoiceXpCanvas(user: User, timeSpentMs: number) {
+export async function createVoiceCanvas(user: User, timeSpentMs: number) {
 
     const canvas = createCanvas(400, 100)
     const ctx = canvas.getContext('2d')

@@ -1,4 +1,4 @@
 import { createLevelCanvas } from './levelCanvas'
-import { createVoiceXpCanvas } from './voiceXpCanvas'
+import { createVoiceCanvas } from './voiceCanvas'
 
-export { createLevelCanvas, createVoiceXpCanvas }
+export { createLevelCanvas, createVoiceCanvas }

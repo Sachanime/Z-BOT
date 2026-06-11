@@ -3,7 +3,7 @@ import { executeChangelogSlashCommand } from './changelog'
 import { executeLevelSlashCommand } from './level'
 import { executeSetupSlashCommand } from './setup'
 import { executeAdminLevelSlashCommand } from './adminLevel'
-import { executeVoiceXpSlashCommand } from './voiceXp'
+import { executeVoiceSlashCommand } from './voice'
 
 export {
     executeInfosSlashCommand,
@@ -11,5 +11,5 @@ export {
     executeLevelSlashCommand,
     executeSetupSlashCommand,
     executeAdminLevelSlashCommand,
-    executeVoiceXpSlashCommand
+    executeVoiceSlashCommand
 }

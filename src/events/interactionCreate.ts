@@ -5,7 +5,7 @@ import {
     executeLevelSlashCommand,
     executeSetupSlashCommand,
     executeAdminLevelSlashCommand,
-    executeVoiceXpSlashCommand
+    executeVoiceSlashCommand
 } from '../commands'
 import { createSystemErrorEmbed } from '../embeds'
 import { Systems } from '../enum'
@@ -40,8 +40,8 @@ export default {
                 executeAdminLevelSlashCommand(interaction)
             }
 
-            if(interaction.commandName == 'voice_xp') {
-                executeVoiceXpSlashCommand(interaction)
+            if(interaction.commandName == 'voice') {
+                executeVoiceSlashCommand(interaction)
             }
 
         }

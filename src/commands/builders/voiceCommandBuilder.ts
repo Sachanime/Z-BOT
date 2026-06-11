@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from 'discord.js'
 
-const voiceXpCommandBuilder = new SlashCommandBuilder()
-.setName('voice_xp')
+const voiceCommandBuilder = new SlashCommandBuilder()
+.setName('voice')
 .setDescription("Afficher votre temps passé en vocal ou celui d'un membre")
 .addUserOption(option => option
     .setName('user')
@@ -9,4 +9,4 @@ const voiceXpCommandBuilder = new SlashCommandBuilder()
     .setRequired(false)
 )
 
-export { voiceXpCommandBuilder }
+export { voiceCommandBuilder }
