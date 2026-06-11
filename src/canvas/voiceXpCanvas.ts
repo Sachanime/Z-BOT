@@ -7,9 +7,9 @@ export async function createVoiceXpCanvas(user: User, timeSpentMs: number) {
     const ctx = canvas.getContext('2d')
     const avatarUrl = user.displayAvatarURL({ extension: 'png', size: 64 })
     const avatarCanvasImage = await loadImage(avatarUrl)
-    const timeSpentMin = Math.floor(timeSpentMs / 60000)
     const timeSpentH = Math.floor(timeSpentMs / 3600000)
-    const fillTime = timeSpentMs * 275 / 3600000 - timeSpentH
+    const timeSpentMin = Math.floor(timeSpentMs / 60000) - 60 * timeSpentH
+    const fillTime = timeSpentMs * 275 / 3600000 - 275 * timeSpentH
 
     ctx.fillStyle = '#2C3E50'
     ctx.fillRect(0, 0, 400, 100)
