@@ -2,14 +2,12 @@ import { EmbedBuilder, Client, User } from 'discord.js'
 import packageJson from '../../package.json'
 import packageLock from '../../package-lock.json'
 
-export async function createInfosEmbed(client: Client) {
-
-    const user = client.user as User
+export async function createInfosEmbed(client: Client<true>) {
 
     const infoEmbed = new EmbedBuilder()
     .setTitle("Z-BOT")
     .setColor('Blue')
-    .setThumbnail(user.avatarURL())
+    .setThumbnail(client.user.avatarURL())
     .setDescription(
         packageJson.description + "\n\n" +
         "__**Version**__\n\n" +
