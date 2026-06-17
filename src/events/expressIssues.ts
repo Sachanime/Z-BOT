@@ -11,7 +11,7 @@ export default {
 
         try {
 
-            const logsChannel = client.channels.cache.get(process.env.DISCORD_CHANNEL_LOGS) as TextChannel
+            const logsChannel = client.channels.cache.get(process.env.DISCORD_CHANNEL_LOGS as string) as TextChannel
             const githubIssueEmbed = await createGithubIssueEmbed(req.body)
 
             if(req.body.action == 'opened') {
@@ -23,7 +23,7 @@ export default {
         }
 
         catch(err) {
-            const errorChannel = client.channels.cache.get(process.env.DISCORD_CHANNEL_LOGS) as TextChannel
+            const errorChannel = client.channels.cache.get(process.env.DISCORD_CHANNEL_LOGS as string) as TextChannel
             const systemErrorEmbed = await createSystemErrorEmbed(Systems.webhook, err)
             errorChannel.send({ embeds: [systemErrorEmbed] })
             console.log("System error reported")

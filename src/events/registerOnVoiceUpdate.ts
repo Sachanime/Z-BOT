@@ -18,9 +18,11 @@ export default {
 
             if(newState.channel != null) {
 
-                const member = newState.member
+                if(!newState.member) { return }
 
-                if(member.user.bot) { return }
+                const member = newState.member.user
+
+                if(member.bot) { return }
 
                 const user = await findUserWithId(member.id)
 
@@ -28,7 +30,7 @@ export default {
 
                 else {
 
-                    await createUser(member.user)
+                    await createUser(member)
 
                     const soundPath = path.join(__dirname, '..', '..', 'assets', 'sounds', 'voiceUserRecording.mp3')
                     const resource = createAudioResource(soundPath)
@@ -47,7 +49,7 @@ export default {
         }
 
         catch(err) {
-            const errorChannel = client.channels.cache.get(process.env.DISCORD_CHANNEL_LOGS) as TextChannel
+            const errorChannel = client.channels.cache.get(process.env.DISCORD_CHANNEL_LOGS as string) as TextChannel
             const systemErrorEmbed = await createSystemErrorEmbed(Systems.voiceRegistration, err)
             errorChannel.send({ embeds: [systemErrorEmbed] })
             console.log("System error reported")

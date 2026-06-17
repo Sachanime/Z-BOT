@@ -2,8 +2,8 @@ import { EmbedBuilder } from 'discord.js'
 
 export async function createGithubPREmbed(data: any) {
 
-    const labelsArray = data.pull_request.labels.map(label => label.name)
-    const assignedsArray = data.pull_request.assignees.map(assigned => assigned.name)
+    const labelsArray = data.pull_request.labels.map((label: any) => label.name)
+    const assignedsArray = data.pull_request.assignees.map((assigned: any) => assigned.name)
 
     const labelsString = labelsArray.join(', ')
     const assignedsString = assignedsArray.join(', ')

@@ -2,8 +2,8 @@ import { EmbedBuilder } from 'discord.js'
 
 export async function createGithubIssueEmbed(data: any) {
 
-    const labelsArray = data.issue.labels.map(label => label.name)
-    const assignedsArray = data.issue.assignees.map(assigned => assigned.login )
+    const labelsArray = data.issue.labels.map((label: any) => label.name)
+    const assignedsArray = data.issue.assignees.map((assigned: any) => assigned.login )
 
     const labelsString = labelsArray.join(', ')
     const assignedsString = assignedsArray.join(', ')
