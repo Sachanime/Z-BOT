@@ -4,7 +4,7 @@ export default {
 
     name: Events.ClientReady,
 
-    async execute(client: Client) {
+    async execute(client: Client<true>) {
 
         await client.application.fetch()
         console.log(`Connected to ${client.application.name}`)

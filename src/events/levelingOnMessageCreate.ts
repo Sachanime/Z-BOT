@@ -1,4 +1,4 @@
-import { Events, Message, MessageType, Client, TextChannel, Role } from 'discord.js'
+import { Events, Message, MessageType, Client, TextChannel, Role, Guild } from 'discord.js'
 import { findUserWithId, updateUserWithId } from '../functions/database'
 import { createLevelUpEmbed, createLevelGoalEmbed, createSystemErrorEmbed } from '../embeds'
 import { Systems } from '../enum'
@@ -12,7 +12,8 @@ export default {
         try {
         
             if(message.author.bot) { return }
-            if(message.type == MessageType.ChannelPinnedMessage) { return }
+            if(!message.inGuild() || !message.member) { return }
+            if(message.type != MessageType.Default && message.type != MessageType.Reply) { return }
 
             const user = await findUserWithId(message.author.id)
 
@@ -21,8 +22,8 @@ export default {
             const userXp = user.xp + 1
             const nextLevel = user.lvl + 1
             const xpGoal = 5 * nextLevel * (nextLevel + 1)
-            const lvlChannel = client.channels.cache.get(process.env.DISCORD_CHANNEL_LEVEL) as TextChannel
-            const server = client.guilds.cache.get(process.env.DISCORD_SERVER)
+            const lvlChannel = client.channels.cache.get(process.env.DISCORD_CHANNEL_LEVEL as string) as TextChannel
+            const server = client.guilds.cache.get(process.env.DISCORD_SERVER as string) as Guild
             let roleReward: Role
 
             await updateUserWithId(message.author, userXp, user.lvl)
@@ -34,21 +35,21 @@ export default {
                 lvlChannel.send({ embeds: [levelUpEmbed] })
 
                 if(nextLevel == 5) {
-                    roleReward = server.roles.cache.get(process.env.DISCORD_ROLEREWARD_TIER1)
+                    roleReward = server.roles.cache.get(process.env.DISCORD_ROLEREWARD_TIER1 as string) as Role
                     const levelGoalEmbed = await createLevelGoalEmbed(message.author, roleReward)
                     lvlChannel.send({ embeds: [levelGoalEmbed] })
                     message.member.roles.add(roleReward)
                 }
 
                 if(nextLevel == 20) {
-                    roleReward = server.roles.cache.get(process.env.DISCORD_ROLEREWARD_TIER2)
+                    roleReward = server.roles.cache.get(process.env.DISCORD_ROLEREWARD_TIER2 as string) as Role
                     const levelGoalEmbed = await createLevelGoalEmbed(message.author, roleReward)
                     lvlChannel.send({ embeds: [levelGoalEmbed] })
                     message.member.roles.add(roleReward)
                 }
 
                 if(nextLevel == 30) {
-                    roleReward = server.roles.cache.get(process.env.DISCORD_ROLEREWARD_TIER3)
+                    roleReward = server.roles.cache.get(process.env.DISCORD_ROLEREWARD_TIER3 as string) as Role
                     const levelGoalEmbed = await createLevelGoalEmbed(message.author, roleReward)
                     lvlChannel.send({ embeds: [levelGoalEmbed] })
                     message.member.roles.add(roleReward)
@@ -59,7 +60,7 @@ export default {
         }
 
         catch(err) {
-            const errorChannel = client.channels.cache.get(process.env.DISCORD_CHANNEL_LOGS) as TextChannel
+            const errorChannel = client.channels.cache.get(process.env.DISCORD_CHANNEL_LOGS as string) as TextChannel
             const systemErrorEmbed = await createSystemErrorEmbed(Systems.messageLeveling, err)
             errorChannel.send({ embeds: [systemErrorEmbed] })
             console.log("System error reported")

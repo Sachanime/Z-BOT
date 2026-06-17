@@ -1,4 +1,4 @@
-import { Events, Message, Client, TextChannel } from 'discord.js'
+import { Events, Message, Client, TextChannel, MessageType } from 'discord.js'
 import { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayer, VoiceConnection } from '@discordjs/voice'
 import { createSystemErrorEmbed } from '../embeds'
 import { Systems } from '../enum'
@@ -14,6 +14,10 @@ export default {
     async execute(message: Message, client: Client) {
 
         try {
+            if(message.author.bot) { return }
+            if(!message.inGuild() || !message.member) { return }
+            if(message.type != MessageType.Default && message.type != MessageType.Reply) { return }
+            if(!message.member.voice.channel) { return }
 
             if(message.content == "!join") {
 
@@ -60,7 +64,7 @@ export default {
         }
 
         catch(err) {
-            const errorChannel = client.channels.cache.get(process.env.DISCORD_ERROR_CHANNEL) as TextChannel
+            const errorChannel = client.channels.cache.get(process.env.DISCORD_ERROR_CHANNEL as string) as TextChannel
             const systemErrorEmbed = await createSystemErrorEmbed(Systems.secretEvent, err)
             errorChannel.send({ embeds: [systemErrorEmbed] })
             console.log("System error reported")

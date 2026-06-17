@@ -14,7 +14,7 @@ export default {
 
     name: Events.InteractionCreate,
 
-    async execute(interaction: Interaction, client: Client) {
+    async execute(interaction: Interaction, client: Client<true>) {
 
         try {
 
