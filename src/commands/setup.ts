@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, Client, TextChannel, CategoryChannel, Role, Snowflake, ChannelType } from 'discord.js'
+import { ChatInputCommandInteraction, Client, TextChannel, CategoryChannel, Role, Snowflake, ChannelType, Guild } from 'discord.js'
 import { setEnv } from '../functions'
 
 export async function executeSetupSlashCommand(interaction: ChatInputCommandInteraction, client: Client) {
@@ -21,14 +21,16 @@ export async function executeSetupSlashCommand(interaction: ChatInputCommandInte
 
     let moderatorCategoryId: Snowflake
     let generalCategoryId: Snowflake
-    let zbotCategoryId: Snowflake
+    let zbotCategoryId: Snowflake | null = null
+
+    const interactionGuild = interaction.guild as Guild
 
     if(moderatorCategory) {
         moderatorCategoryId = moderatorCategory.id
     }
 
     else {
-        const newZbotCategory = await interaction.guild.channels.create({ name: 'Z-BOT', type: ChannelType.GuildCategory, reason: 'Setting-up' })
+        const newZbotCategory = await interactionGuild.channels.create({ name: 'Z-BOT', type: ChannelType.GuildCategory, reason: 'Setting-up' })
         moderatorCategoryId = newZbotCategory.id
         zbotCategoryId = newZbotCategory.id
     }
@@ -37,13 +39,13 @@ export async function executeSetupSlashCommand(interaction: ChatInputCommandInte
         generalCategoryId = generalCategory.id
     }
 
-    else if(zbotCategoryId) {
+    else if(zbotCategoryId != null) {
         generalCategoryId = zbotCategoryId
     }
 
     else {
-        const newZbotCategory = await interaction.guild.channels.create({ name: 'Z-BOT', type: ChannelType.GuildCategory, reason: 'Setting up' })
-        moderatorCategoryId = newZbotCategory.id
+        const newZbotCategory = await interactionGuild.channels.create({ name: 'Z-BOT', type: ChannelType.GuildCategory, reason: 'Setting up' })
+        generalCategoryId = newZbotCategory.id
     }
 
     if(logsChannel) {
@@ -51,7 +53,7 @@ export async function executeSetupSlashCommand(interaction: ChatInputCommandInte
     }
 
     else {
-        const newLogsChannel = await interaction.guild.channels.create({ name: 'z-logs', type: ChannelType.GuildText, parent: moderatorCategoryId })
+        const newLogsChannel = await interactionGuild.channels.create({ name: 'z-logs', type: ChannelType.GuildText, parent: moderatorCategoryId })
         setEnv(logsChannelEnvKey, newLogsChannel.id)
     }
 
@@ -60,7 +62,7 @@ export async function executeSetupSlashCommand(interaction: ChatInputCommandInte
     }
 
     else {
-        const newLevelChannel = await interaction.guild.channels.create({ name: 'level', type: ChannelType.GuildText, parent: generalCategoryId })
+        const newLevelChannel = await interactionGuild.channels.create({ name: 'level', type: ChannelType.GuildText, parent: generalCategoryId })
         setEnv(levelChannelEnvKey, newLevelChannel.id)
     }
 
@@ -69,7 +71,7 @@ export async function executeSetupSlashCommand(interaction: ChatInputCommandInte
     }
 
     else {
-        const newRoleRewardTier1 = await interaction.guild.roles.create({ name: 'Tier 1', reason: 'Setting up' })
+        const newRoleRewardTier1 = await interactionGuild.roles.create({ name: 'Tier 1', reason: 'Setting up' })
         setEnv(roleRewardTier1EnvKey, newRoleRewardTier1.id)
     }
 
@@ -78,7 +80,7 @@ export async function executeSetupSlashCommand(interaction: ChatInputCommandInte
     }
 
     else {
-        const newRoleRewardTier2 = await interaction.guild.roles.create({ name: 'Tier 2', reason: 'Setting up' })
+        const newRoleRewardTier2 = await interactionGuild.roles.create({ name: 'Tier 2', reason: 'Setting up' })
         setEnv(roleRewardTier2EnvKey, newRoleRewardTier2.id)
     }
 
@@ -87,7 +89,7 @@ export async function executeSetupSlashCommand(interaction: ChatInputCommandInte
     }
 
     else {
-        const newRoleRewardTier3 = await interaction.guild.roles.create({ name: 'Tier 3', reason: 'Setting up' })
+        const newRoleRewardTier3 = await interactionGuild.roles.create({ name: 'Tier 3', reason: 'Setting up' })
         setEnv(roleRewardTier3EnvKey, newRoleRewardTier3.id)
     }
 
