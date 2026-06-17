@@ -17,4 +17,6 @@ model Users {
   username String
   xp Int
   lvl Int
+  valoName String
+  valoTag String
 }
