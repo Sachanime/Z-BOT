@@ -7,6 +7,7 @@ import { createSystemErrorEmbed } from './systemErrorEmbed'
 import { createGithubIssueEmbed } from './githubIssueEmbed'
 import { createGithubPREmbed } from './githubPREmbed'
 import { createLevelAdminEmbed } from './levelAdminEmbed'
+import { createDatabaseErrorEmbed } from './databaseErrorEmbed'
 
 export { 
     createInfosEmbed,
@@ -17,5 +18,6 @@ export {
     createSystemErrorEmbed,
     createGithubIssueEmbed,
     createGithubPREmbed,
-    createLevelAdminEmbed
+    createLevelAdminEmbed,
+    createDatabaseErrorEmbed
 }
