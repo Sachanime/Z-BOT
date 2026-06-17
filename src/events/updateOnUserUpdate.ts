@@ -1,4 +1,4 @@
-import { Events, User, Client, TextChannel, TextChannelResolvable } from 'discord.js'
+import { Events, User, Client, TextChannel } from 'discord.js'
 import { findUserWithId, updateUserWithId } from '../functions/database'
 import { createSystemErrorEmbed, createDatabaseErrorEmbed } from '../embeds'
 import { Systems } from '../enum'
