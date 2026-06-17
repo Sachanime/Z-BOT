@@ -1,7 +1,14 @@
 import { Client, Events, Interaction, TextChannel } from "discord.js"
-import { executeInfosSlashCommand, executeChangelogSlashCommand, executeLevelSlashCommand, executeSetupSlashCommand, executeAdminLevelSlashCommand } from '../commands'
 import { createSystemErrorEmbed } from '../embeds'
 import { Systems } from '../enum'
+import {
+    executeInfosSlashCommand,
+    executeChangelogSlashCommand,
+    executeLevelSlashCommand,
+    executeSetupSlashCommand,
+    executeAdminLevelSlashCommand,
+} from '../commands'
+import { getValorantPlayerData } from '../commands/gameTracker/valorantTracker'
 
 export default {
 
@@ -31,6 +38,10 @@ export default {
 
             if(interaction.commandName == 'admin_level') {
                 executeAdminLevelSlashCommand(interaction)
+            }
+
+            if(interaction.commandName == 'tracker') {
+                getValorantPlayerData(interaction)
             }
 
         }
