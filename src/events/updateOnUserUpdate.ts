@@ -14,12 +14,15 @@ export default {
             if(user.bot) { return }
 
             const findedUser = await findUserWithId(user.id)
+
+            if(!findedUser) { return } 
+
             await updateUserWithId(user, findedUser.xp, findedUser.lvl)
 
         }
 
         catch(err) {
-            const errorChannel = client.channels.cache.get(process.env.DISCORD_CHANNEL_LOGS) as TextChannel
+            const errorChannel = client.channels.cache.get(process.env.DISCORD_CHANNEL_LOGS as string) as TextChannel
             const systemErrorEmbed = await createSystemErrorEmbed(Systems.memberUpdate, err)
             errorChannel.send({ embeds: [systemErrorEmbed] })
             console.log("System error reported")

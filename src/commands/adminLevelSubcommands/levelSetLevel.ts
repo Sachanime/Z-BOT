@@ -8,7 +8,7 @@ export async function executeLevelSetLevelSlashCommand(interaction: ChatInputCom
     await interaction.deferReply()
 
     const member = interaction.options.getMember('member') as GuildMember
-    const amount = interaction.options.getNumber('amount')
+    const amount = interaction.options.getNumber('amount', true)
     const newLevel = amount
     const newXp = getXpWithLevel(newLevel)
     const levelAdminEmbed = await createLevelAdminEmbed()
