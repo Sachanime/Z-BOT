@@ -1,4 +1,4 @@
-import { EmbedBuilder, Client, User } from 'discord.js'
+import { EmbedBuilder, Client } from 'discord.js'
 import packageJson from '../../package.json'
 import packageLock from '../../package-lock.json'
 
