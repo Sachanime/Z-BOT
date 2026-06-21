@@ -8,7 +8,8 @@ import {
     levelCommandBuilder,
     setupCommandBuilder,
     adminLevelCommandBuilder,
-    trackerCommandBuilder
+    trackerCommandBuilder,
+    zanayLastMatchCommandBuilder
 } from './commands/builders'
 
 config({ path: resolve(__dirname, '../.env') })
@@ -21,7 +22,8 @@ const commands = [
     levelCommandBuilder,
     setupCommandBuilder,
     adminLevelCommandBuilder,
-    trackerCommandBuilder
+    trackerCommandBuilder,
+    zanayLastMatchCommandBuilder
 ].map(command => command.toJSON())
 const rest = new REST({ version: '10' }).setToken(token)
 
