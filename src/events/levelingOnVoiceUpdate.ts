@@ -30,7 +30,10 @@ export default {
                 if(member.bot) { return }
 
                 const joinTime = voiceTimer.get(member.id)
+
                 if(!joinTime) { return }
+
+                voiceTimer.delete(member.id)
 
                 const server = client.guilds.cache.get(process.env.DISCORD_SERVER as string) as Guild
                 const timeSpentMs = Date.now() - joinTime
