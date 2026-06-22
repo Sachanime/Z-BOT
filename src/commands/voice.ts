@@ -9,7 +9,7 @@ export async function executeVoiceSlashCommand(interaction: ChatInputCommandInte
     let userTarget: User
 
     if(interaction.options.getUser('user')) {
-        userTarget = interaction.options.getUser('user')
+        userTarget = interaction.options.getUser('user') as User
     }
 
     else {
@@ -17,6 +17,9 @@ export async function executeVoiceSlashCommand(interaction: ChatInputCommandInte
     }
 
     const joinTime = voiceTimer.get(userTarget.id)
+
+    if(!joinTime) { return }
+
     const timeSpent = Date.now() - joinTime
     const buffer = await createVoiceCanvas(userTarget, timeSpent)
     const attachment = new AttachmentBuilder(buffer)
