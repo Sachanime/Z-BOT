@@ -14,7 +14,7 @@ export default {
 
     name: Events.InteractionCreate,
 
-    async execute(interaction: Interaction, client: Client) {
+    async execute(interaction: Interaction, client: Client<true>) {
 
         try {
 
@@ -47,7 +47,7 @@ export default {
         }
 
         catch(err) {
-            const errorChannel = client.channels.cache.get(process.env.DISCORD_CHANNEL_LOGS) as TextChannel
+            const errorChannel = client.channels.cache.get(process.env.DISCORD_CHANNEL_LOGS as string) as TextChannel
             const systemErrorEmbed = await createSystemErrorEmbed(Systems.command, err)
             errorChannel.send({ embeds: [systemErrorEmbed] })
             console.log("System error reported")

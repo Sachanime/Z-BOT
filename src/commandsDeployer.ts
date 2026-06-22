@@ -13,8 +13,8 @@ import {
 
 config({ path: resolve(__dirname, '../.env') })
 
-const token = process.env.DISCORD_TOKEN
-const clientId = process.env.DISCORD_CLIENT_ID
+const token = process.env.DISCORD_TOKEN as string
+const clientId = process.env.DISCORD_CLIENT_ID as string
 const commands = [
     changelogCommandBuilder,
     infosCommandBuilder,
