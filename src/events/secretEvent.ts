@@ -1,9 +1,10 @@
 import { Events, Message, Client, TextChannel, MessageType } from 'discord.js'
-import { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayer, VoiceConnection } from '@discordjs/voice'
+import { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayer, VoiceConnection, StreamType } from '@discordjs/voice'
+import path from 'path'
 import { createSystemErrorEmbed } from '../embeds'
 import { Systems } from '../enum'
-import path from 'path'
 import { setEnv } from '../functions'
+
 let connection: VoiceConnection
 let player: AudioPlayer
 
@@ -14,6 +15,7 @@ export default {
     async execute(message: Message, client: Client) {
 
         try {
+
             if(message.author.bot) { return }
             if(!message.inGuild() || !message.member) { return }
             if(message.type != MessageType.Default && message.type != MessageType.Reply) { return }
@@ -32,8 +34,8 @@ export default {
             if(message.content == '!play') {
 
                 player = createAudioPlayer()
-                const resourcePath = path.join(__dirname, '..', '..', 'assets', 'sounds', 'loruleCastle.mp3')
-                const resource = createAudioResource(resourcePath)
+                const resourcePath = path.join(__dirname, '..', '..', 'assets', 'sounds', 'loruleCastle.ogg')
+                const resource = createAudioResource(resourcePath, { inputType: StreamType.OggOpus })
 
                 connection.subscribe(player)
                 player.play(resource)

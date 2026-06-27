@@ -25,7 +25,6 @@ registerFont(path.join(fontPath, 'gg sans Bold.ttf'), { family: 'Discord', weigh
 registerFont(path.join(fontPath, 'gg sans Medium.ttf'), { family: 'Discord', weight: 'normal' })
 registerFont(path.join(fontPath, 'gg sans Regular.ttf'), { family: 'Discord', weight: 'lighter' })
 registerFont(path.join(fontPath, 'gg sans Semibold.ttf'), { family: 'Discord', weight: 'semibold' })
-console.log("Fonts loaded")
 
 client.once(clientReady.name, () => clientReady.execute(client))
 client.on(secretEvent.name, (message) => secretEvent.execute(message, client))
