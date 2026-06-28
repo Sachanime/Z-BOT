@@ -75,3 +75,5 @@ interface RoundPlayerStat {
 interface KillEvent {
     kill_time_in_round: number
 }
+
+export { ValorantMatchData }
