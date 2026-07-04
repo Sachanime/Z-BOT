@@ -1,3 +1,3 @@
-import { ValorantMatchData } from './valorantMatchDataInterface'
+import { ValorantMatchData, ValorantAPIData, PlayerData } from './valorantMatchDataInterface'
 
-export { ValorantMatchData }
+export {ValorantMatchData, ValorantAPIData, PlayerData }

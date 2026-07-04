@@ -1,10 +1,16 @@
 type Team = "Red" | "Blue"
 
+interface ValorantAPIData {
+    data: ValorantMatchData
+}
+
 interface ValorantMatchData {
     metadata: {
         map: string
         game_start: number
+        game_length: number
         mode_id: string
+        rounds_played: number
     }
     teams: Record<string, TeamData>
     players: {
@@ -22,6 +28,7 @@ interface TeamData {
 interface PlayerData {
     puuid: string
     name: string
+    character : string
     tag: string
     team: Team
     currenttier: number
@@ -33,14 +40,14 @@ interface PlayerData {
         spent: {
             overall: number
         }
-        dammage_made: number
     }
+    damage_made: number
 }
 
 interface RoundData {
     player_stats: RoundPlayerStat[]
     bomb_planted: boolean
-    bobm_defused: boolean
+    bomb_defused: boolean
     plant_events: {
         planted_by: {
             puuid: string
@@ -76,4 +83,4 @@ interface KillEvent {
     kill_time_in_round: number
 }
 
-export { ValorantMatchData }
+export { ValorantMatchData, ValorantAPIData, PlayerData }
