@@ -8,7 +8,7 @@ import {
     executeSetupSlashCommand,
     executeAdminLevelSlashCommand,
 } from '../commands'
-import { getValorantPlayerData, getZanayLastMatch } from '../commands/gameTracker/valorantTracker'
+import { getPlayerLastMatch } from '../commands/gameTracker/valorantTracker'
 
 export default {
 
@@ -40,12 +40,8 @@ export default {
                 executeAdminLevelSlashCommand(interaction)
             }
 
-            if(interaction.commandName == 'tracker') {
-                getValorantPlayerData(interaction)
-            }
-
-            if(interaction.commandName == 'zanay') {
-                getZanayLastMatch(interaction)
+            if(interaction.commandName == 'track') {
+                getPlayerLastMatch(interaction)
             }
 
         }

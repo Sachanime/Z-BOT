@@ -1,4 +1,4 @@
 import { getValorantPlayerData } from './getPlayer'
-import { getZanayLastMatch } from './getPlayerLastMatch'
+import { getPlayerLastMatch } from './getPlayerLastMatch'
 
-export { getValorantPlayerData, getZanayLastMatch }
+export { getValorantPlayerData, getPlayerLastMatch }

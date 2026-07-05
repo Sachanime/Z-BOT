@@ -8,6 +8,7 @@ import { createGithubIssueEmbed } from './githubIssueEmbed'
 import { createGithubPREmbed } from './githubPREmbed'
 import { createLevelAdminEmbed } from './levelAdminEmbed'
 import { createDatabaseErrorEmbed } from './databaseErrorEmbed'
+import { createTrackerErrorEmbed } from './trackerErrorEmbed'
 
 export { 
     createInfosEmbed,
@@ -19,5 +20,6 @@ export {
     createGithubIssueEmbed,
     createGithubPREmbed,
     createLevelAdminEmbed,
-    createDatabaseErrorEmbed
+    createDatabaseErrorEmbed,
+    createTrackerErrorEmbed
 }

@@ -1,6 +1,6 @@
 type Team = "Red" | "Blue"
 
-interface ValorantAPIData {
+interface ValorantAPIMatchData {
     data: ValorantMatchData
 }
 
@@ -83,4 +83,4 @@ interface KillEvent {
     kill_time_in_round: number
 }
 
-export { ValorantMatchData, ValorantAPIData, PlayerData }
+export { ValorantMatchData, ValorantAPIMatchData, PlayerData }
